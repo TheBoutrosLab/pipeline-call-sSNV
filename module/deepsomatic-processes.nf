@@ -75,11 +75,11 @@ process call_gSNP_DeepVariant {
     ext log_dir_suffix: { "${interval_id}" }
 
     input:
-    path(normal_bam)
-    path(normal_bam_index)
+    tuple path(intervals), val(interval_id)
     path(tumor_bam)
     path(tumor_bam_index)
-    tuple path(intervals), val(interval_id)
+    path(normal_bam)
+    path(normal_bam_index)
     path(reference_fasta)
     path(reference_index)
     path(reference_dict)

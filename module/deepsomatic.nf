@@ -1,4 +1,5 @@
 include { run_SplitIntervals_GATK; run_MergeVcfs_GATK } from './mutect2-processes'
+include { convert_IntervalListToBed_GATK; call_sSNV_DeepSomatic } from './deepsomatic-processes'
 include { filter_VCF_BCFtools; split_VCF_BCFtools; generate_sha512sum } from './common' addParams(
     log_dir_prefix: "DeepSomatic-${params.deepsomatic_version}"
     )
@@ -27,38 +28,62 @@ workflow deepsomatic {
             )
 
         run_SplitIntervals_GATK.out.interval_list
-        .flatten()
-        .map{ interval_path ->
-            [
-                'interval_id': file(interval_path).getName().replace('-contig.interval_list', ''),
-                'interval_path': interval_path
-            ]
-        }
-        .set{ input_ch_intervals }
+            .flatten()
+            .map{ interval_path ->
+                [
+                    file(interval_path).getName().replace('-contig.interval_list', ''),
+                    interval_path
+                ]
+            } | convert_IntervalListToBed_GATK
 
-        filter_VCF_BCFtools(run_FilterMutectCalls_GATK.out.filtered
-            .map{ it -> ['all', it] }
-            )
 
-        split_VCF_BCFtools(filter_VCF_BCFtools.out.gzvcf
-            .map{ it -> it[1] },
+        call_sSNV_DeepSomatic(
+            convert_IntervalListToBed_GATK.out.interval_bed,
+            tumor_bam
+                .combine(convert_IntervalListToBed_GATK.out.interval_bed)
+                .map{ tumor_bam_combined -> tumor_bam_combined[0] },
+            tumor_index
+                .combine(convert_IntervalListToBed_GATK.out.interval_bed)
+                .map{ tumor_index_combined -> tumor_index_combined[0] },
+            normal_bam
+                .combine(convert_IntervalListToBed_GATK.out.interval_bed)
+                .map{ normal_bam_combined -> normal_bam_combined[0] },
+            normal_index
+                .combine(convert_IntervalListToBed_GATK.out.interval_bed)
+                .map{ normal_index_combined -> normal_index_combined[0] },
+            params.reference,
+            params.reference_index,
+            params.reference_dict,
+        )
+
+        call_sSNV_DeepSomatic.out.vcf
+            .filter{ raw_vcf_out -> (raw_vcf_out[2] != "0") } // Filter out empty VCFs
+            .map{ filtered_vcf -> filtered_vcf[0] }
+            .collect() | run_MergeVcfs_GATK
+
+        run_MergeVcfs_GATK.out.unfiltered
+            .map{ unfiltered_vcf -> ['all', unfiltered_vcf] } | filter_VCF_BCFtools
+
+        split_VCF_BCFtools(
+            filter_VCF_BCFtools.out.gzvcf.map{ filtered_vcf -> filtered_vcf[1] },
             ['snps', 'mnps', 'indels']
         )
 
-        compress_index_VCF(rename_samples_BCFtools.out.gzvcf)
+        compress_index_VCF(
+            split_VCF_BCFtools.out.gzvcf
+        )
 
-        file_for_sha512 = compress_index_VCF.out.index_out
-            .map{ it -> ["deepsomatic-${it[0]}-vcf", it[1]] }
-            .mix( compress_index_VCF.out.index_out
-            .map{ it -> ["deepsomatic-${it[0]}-index", it[2]] }
+        compress_index_VCF.out.index_out
+            .map{ indexed_out ->
+                ["deepsomatic-${indexed_out[0]}-vcf", indexed_out[1]]
+            }
+            .mix(
+                compress_index_VCF.out.index_out
+                    .map{ index_file ->
+                        ["deepsomatic-${index_file[0]}-index", index_file[2]]
+                    }
             )
-        generate_sha512sum(file_for_sha512)
+            .set{ files_for_checksum }
 
-    emit:
-        gzvcf = compress_index_VCF.out.index_out
-            .filter { it[0] == 'snps' }
-            .map{ it -> ["${it[1]}"] }
-        idx = compress_index_VCF.out.index_out
-            .filter { it[0] == 'snps' }
-            .map{ it -> ["${it[2]}"] }
+        generate_sha512sum(files_for_checksum)
     }
