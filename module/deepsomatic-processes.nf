@@ -61,12 +61,12 @@ process convert_IntervalListToBed_GATK {
         params.save_intermediate_files: bool.
         params.docker_image_deepvariant: string
 */
-process call_gSNP_DeepVariant {
+process call_sSNV_DeepSomatic {
     container params.docker_image_deepsomatic
 
-    tag "${sample_id}-${interval_id}"
+    tag "${interval_id}"
 
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.replace(':')[-1]}",
+    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
                mode: "copy",
                pattern: "*.vcf.gz*",
                enabled: params.save_intermediate_files
@@ -75,7 +75,7 @@ process call_gSNP_DeepVariant {
     ext log_dir_suffix: { "${interval_id}" }
 
     input:
-    tuple path(intervals), val(interval_id)
+    tuple val(interval_id), path(intervals)
     path(tumor_bam)
     path(tumor_bam_index)
     path(normal_bam)
@@ -99,7 +99,7 @@ process call_gSNP_DeepVariant {
     mkdir log
     mkdir work
 
-    /opt/deepvariant/bin/run_deepvariant \
+    /opt/deepvariant/bin/deepsomatic/run_deepsomatic \
         --model_type=${model_type} \
         --ref=${reference_fasta} \
         --reads_normal=${normal_bam} \

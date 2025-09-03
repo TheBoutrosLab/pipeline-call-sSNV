@@ -8,7 +8,8 @@ include { compress_index_VCF } from '../external/pipeline-Nextflow-module/module
         output_dir: params.workflow_output_dir,
         log_output_dir: "${params.log_output_dir}/process-log/DeepSomatic-${params.deepsomatic_version}",
         bgzip_extra_args: params.bgzip_extra_args,
-        tabix_extra_args: params.tabix_extra_args
+        tabix_extra_args: params.tabix_extra_args,
+        unzip_and_rezip: true
         ])
 
 workflow deepsomatic {
@@ -31,7 +32,7 @@ workflow deepsomatic {
             .flatten()
             .map{ interval_path ->
                 [
-                    file(interval_path).getName().replace('-contig.interval_list', ''),
+                    file(interval_path).getName().replace('-scattered.interval_list', ''),
                     interval_path
                 ]
             } | convert_IntervalListToBed_GATK
