@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="694px" preserveAspectRatio="none" style="width:687px;height:694px;background:#FFFFFF;" version="1.1" viewBox="0 0 687 694" width="687px" zoomAndPan="magnify"><defs/><g><!--MD5=[683848f6f89b4f10b76be1befce61c49]
+entity reference_genome--><g id="elem_reference_genome"><rect fill="#ADD8E6" height="60.5938" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="154" x="66" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="134" x="76" y="29.9951">Reference genome</text><line style="stroke:#181818;stroke-width:1.0;" x1="67" x2="219" y1="33.2969" y2="33.2969"/><line style="stroke:#181818;stroke-width:1.0;" x1="67" x2="219" y1="35.2969" y2="35.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="100" x="76" y="50.292">Input: fasta file</text></g><!--MD5=[7208dd2ab11e4302e615decefbd72785]
+entity normal_bam--><g id="elem_normal_bam"><rect fill="#ADD8E6" height="60.5938" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="169" x="314.5" y="136"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="83" x="324.5" y="158.9951">Normal BAM</text><line style="stroke:#181818;stroke-width:1.0;" x1="315.5" x2="482.5" y1="162.2969" y2="162.2969"/><line style="stroke:#181818;stroke-width:1.0;" x1="315.5" x2="482.5" y1="164.2969" y2="164.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="149" x="324.5" y="179.292">Input: normal BAM file</text></g><!--MD5=[f2d67d33cd25f2be41fb883452e52018]
+entity tumor_bam--><g id="elem_tumor_bam"><rect fill="#ADD8E6" height="60.5938" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="163" x="518.5" y="136"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="80" x="528.5" y="158.9951">Tumor BAM</text><line style="stroke:#181818;stroke-width:1.0;" x1="519.5" x2="680.5" y1="162.2969" y2="162.2969"/><line style="stroke:#181818;stroke-width:1.0;" x1="519.5" x2="680.5" y1="164.2969" y2="164.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="143" x="528.5" y="179.292">Input: tumor BAM file</text></g><!--MD5=[d63e1c22a2c9d43d1cb6d0e0c362f05c]
+entity gatk_splitIntervals--><g id="elem_gatk_splitIntervals"><rect fill="#FFFFFF" height="76.8906" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="272" x="7" y="128"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="128" x="17" y="150.9951">GATK SplitIntervals</text><line style="stroke:#181818;stroke-width:1.0;" x1="8" x2="278" y1="154.2969" y2="154.2969"/><line style="stroke:#181818;stroke-width:1.0;" x1="8" x2="278" y1="156.2969" y2="156.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="248" x="17" y="171.292">Output: reference genome split into</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="211" x="17" y="187.5889">params.scatter_count intervals</text></g><!--MD5=[dc2a5c2e48f7a2da6675c9503d6255fa]
+entity call_deepsomatic--><g id="elem_call_deepsomatic"><rect fill="#FFFFFF" height="60.5938" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="259" x="269.5" y="265"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="239" x="279.5" y="287.9951">Call DeepSomatic: One per interval</text><line style="stroke:#181818;stroke-width:1.0;" x1="270.5" x2="527.5" y1="291.2969" y2="291.2969"/><line style="stroke:#181818;stroke-width:1.0;" x1="270.5" x2="527.5" y1="293.2969" y2="293.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="154" x="279.5" y="308.292">Output: called variants</text></g><!--MD5=[ab25e9f2a4aadf8e6384ce1eddb2238b]
+entity gatk_mergeVcfs--><g id="elem_gatk_mergeVcfs"><rect fill="#FFFFFF" height="60.5938" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="173" x="312.5" y="386"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="115" x="322.5" y="408.9951">GATK MergeVcfs</text><line style="stroke:#181818;stroke-width:1.0;" x1="313.5" x2="484.5" y1="412.2969" y2="412.2969"/><line style="stroke:#181818;stroke-width:1.0;" x1="313.5" x2="484.5" y1="414.2969" y2="414.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="153" x="322.5" y="429.292">Output: unfiltered VCF</text></g><!--MD5=[33d67f4a9077e9ad241bd3a12f7b8c57]
+entity filter_vcf--><g id="elem_filter_vcf"><rect fill="#90EE90" height="60.5938" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="159" x="319.5" y="507"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="64" x="329.5" y="529.9951">Filter VCF</text><line style="stroke:#181818;stroke-width:1.0;" x1="320.5" x2="477.5" y1="533.2969" y2="533.2969"/><line style="stroke:#181818;stroke-width:1.0;" x1="320.5" x2="477.5" y1="535.2969" y2="535.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="139" x="329.5" y="550.292">Output: Filtered VCF</text></g><!--MD5=[3386893aa5eefab30ad20dff733108bf]
+link reference_genome to gatk_splitIntervals--><g id="link_reference_genome_gatk_splitIntervals"><path codeLine="20" d="M143,68.07 C143,68.07 143,122.82 143,122.82 " fill="none" id="reference_genome-to-gatk_splitIntervals" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="143,127.82,147,118.82,143,122.82,139,118.82,143,127.82" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[02ca9a20f0602921f5182270900fab6f]
+link gatk_splitIntervals to call_deepsomatic--><g id="link_gatk_splitIntervals_call_deepsomatic"><path codeLine="21" d="M274.25,205.2 C274.25,205.2 274.25,259.6 274.25,259.6 " fill="none" id="gatk_splitIntervals-to-call_deepsomatic" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="274.25,264.6,278.25,255.6,274.25,259.6,270.25,255.6,274.25,264.6" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[ba8f74ec206d7fde0fc0bc7d21fa6d19]
+link call_deepsomatic to gatk_mergeVcfs--><g id="link_call_deepsomatic_gatk_mergeVcfs"><path codeLine="22" d="M399,326.03 C399,326.03 399,380.98 399,380.98 " fill="none" id="call_deepsomatic-to-gatk_mergeVcfs" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="399,385.98,403,376.98,399,380.98,395,376.98,399,385.98" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[fe09fe8369672265b410fef0295c60b1]
+link tumor_bam to call_deepsomatic--><g id="link_tumor_bam_call_deepsomatic"><path codeLine="23" d="M523.5,197.07 C523.5,197.07 523.5,259.7 523.5,259.7 " fill="none" id="tumor_bam-to-call_deepsomatic" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="523.5,264.7,527.5,255.7,523.5,259.7,519.5,255.7,523.5,264.7" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[19b1d3695a970fb3c3e6d748d4374d52]
+link normal_bam to call_deepsomatic--><g id="link_normal_bam_call_deepsomatic"><path codeLine="24" d="M399,197.07 C399,197.07 399,259.7 399,259.7 " fill="none" id="normal_bam-to-call_deepsomatic" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="399,264.7,403,255.7,399,259.7,395,255.7,399,264.7" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[498e87d79da3b94e78e513de3d674110]
+link gatk_mergeVcfs to filter_vcf--><g id="link_gatk_mergeVcfs_filter_vcf"><path codeLine="27" d="M399,447.03 C399,447.03 399,501.98 399,501.98 " fill="none" id="gatk_mergeVcfs-to-filter_vcf" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="399,506.98,403,497.98,399,501.98,395,497.98,399,506.98" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" font-style="italic" lengthAdjust="spacing" textLength="47" x="347" y="470.5669">raw.vcf</text></g><rect fill="#DDDDDD" height="97.4844" rx="7.5" ry="7.5" style="stroke:#000000;stroke-width:1.0;" width="154" x="8" y="580.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="36" x="18" y="601.5889">Color</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="94" x="62" y="601.5889">Process Type</text><rect fill="#ADD8E6" height="16.2969" style="stroke:none;stroke-width:1.0;" width="44" x="14" y="604.8906"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="14" y="617.8857"> </text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="35" x="62" y="617.8857">Input</text><rect fill="#FFFFFF" height="16.2969" style="stroke:none;stroke-width:1.0;" width="44" x="14" y="621.1875"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="14" y="634.1826"> </text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="87" x="62" y="634.1826">Intermediate</text><rect fill="#90EE90" height="16.2969" style="stroke:none;stroke-width:1.0;" width="44" x="14" y="637.4844"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="14" y="650.4795"> </text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48" x="62" y="650.4795">Output</text><rect fill="#FFFF00" height="16.2969" style="stroke:none;stroke-width:1.0;" width="44" x="14" y="653.7813"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="14" y="666.7764"> </text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="21" x="62" y="666.7764">QC</text><line style="stroke:#000000;stroke-width:1.0;" x1="14" x2="156" y1="588.5938" y2="588.5938"/><line style="stroke:#000000;stroke-width:1.0;" x1="14" x2="156" y1="604.8906" y2="604.8906"/><line style="stroke:#000000;stroke-width:1.0;" x1="14" x2="156" y1="621.1875" y2="621.1875"/><line style="stroke:#000000;stroke-width:1.0;" x1="14" x2="156" y1="637.4844" y2="637.4844"/><line style="stroke:#000000;stroke-width:1.0;" x1="14" x2="156" y1="653.7813" y2="653.7813"/><line style="stroke:#000000;stroke-width:1.0;" x1="14" x2="156" y1="670.0781" y2="670.0781"/><line style="stroke:#000000;stroke-width:1.0;" x1="14" x2="14" y1="588.5938" y2="670.0781"/><line style="stroke:#000000;stroke-width:1.0;" x1="58" x2="58" y1="588.5938" y2="670.0781"/><line style="stroke:#000000;stroke-width:1.0;" x1="156" x2="156" y1="588.5938" y2="670.0781"/><!--MD5=[1e90724d0d7e0ecacb8e7bfdf7dad88f]
+@startuml neusomatic_chart
+
+!include pipeline_elements.iuml!string_functions
+!include pipeline_elements.iuml!input_rect
+!include pipeline_elements.iuml!output_rect
+!include pipeline_elements.iuml!intermediate_rect
+!include pipeline_elements.iuml!qc_rect
+!include pipeline_elements.iuml!process_legend
+
+skinparam linetype ortho
+
+$input_process(reference_genome, 'Reference genome', 'Input: fasta file')
+$input_process(normal_bam, 'Normal BAM', 'Input: normal BAM file')
+$input_process(tumor_bam, 'Tumor BAM', 'Input: tumor BAM file')
+
+$intermediate_process(gatk_splitIntervals, 'GATK SplitIntervals', 'Output: reference genome split into %newline()params.scatter_count intervals')
+$intermediate_process(call_deepsomatic, "Call DeepSomatic: One per interval", "Output: called variants")
+$intermediate_process(gatk_mergeVcfs, 'GATK MergeVcfs', 'Output: unfiltered VCF')
+$output_process(filter_vcf, "Filter VCF", "Output: Filtered VCF")
+
+reference_genome -d-> gatk_splitIntervals
+gatk_splitIntervals -d-> call_deepsomatic
+call_deepsomatic -d-> gatk_mergeVcfs
+tumor_bam -d-> call_deepsomatic
+normal_bam -d-> call_deepsomatic
+
+
+gatk_mergeVcfs -d-> filter_vcf: // raw.vcf //
+
+$add_legend("left")
+
+@enduml
+
+@startuml neusomatic_chart
+
+
+skinparam linetype ortho
+
+rectangle reference_genome #LightBlue as "
+Reference genome
+====
+Input: fasta file"
+rectangle normal_bam #LightBlue as "
+Normal BAM
+====
+Input: normal BAM file"
+rectangle tumor_bam #LightBlue as "
+Tumor BAM
+====
+Input: tumor BAM file"
+
+rectangle gatk_splitIntervals #White as "
+GATK SplitIntervals
+====
+Output: reference genome split into 
+params.scatter_count intervals"
+rectangle call_deepsomatic #White as "
+Call DeepSomatic: One per interval
+====
+Output: called variants"
+rectangle gatk_mergeVcfs #White as "
+GATK MergeVcfs
+====
+Output: unfiltered VCF"
+rectangle filter_vcf #LightGreen as "
+Filter VCF
+====
+Output: Filtered VCF"
+
+reference_genome -d-> gatk_splitIntervals
+gatk_splitIntervals -d-> call_deepsomatic
+call_deepsomatic -d-> gatk_mergeVcfs
+tumor_bam -d-> call_deepsomatic
+normal_bam -d-> call_deepsomatic
+
+
+gatk_mergeVcfs -d-> filter_vcf: // raw.vcf //
+
+legend left
+  | Color | Process Type|
+  |<#LightBlue>| Input |
+  |<#White>| Intermediate |
+  |<#LightGreen>| Output |
+  |<#Yellow>| QC |
+endlegend
+
+@enduml
+
+PlantUML version 1.2022.6(Tue Jun 21 17:34:49 GMT 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
