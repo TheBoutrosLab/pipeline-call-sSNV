@@ -1,0 +1,34 @@
+@startuml neusomatic_chart
+
+!include pipeline_elements.iuml!string_functions
+!include pipeline_elements.iuml!input_rect
+!include pipeline_elements.iuml!output_rect
+!include pipeline_elements.iuml!intermediate_rect
+!include pipeline_elements.iuml!qc_rect
+!include pipeline_elements.iuml!process_legend
+
+skinparam linetype ortho
+
+$input_process(reference_genome, 'Reference genome', 'Input: fasta file')
+$input_process(normal_bam, 'Normal BAM', 'Input: normal BAM file')
+$input_process(tumor_bam, 'Tumor BAM', 'Input: tumor BAM file')
+
+$intermediate_process(gatk_splitIntervals, 'GATK SplitIntervals', 'Output: reference genome split into %newline()params.scatter_count intervals')
+$intermediate_process(call_deepsomatic, "Call DeepSomatic: One per interval", "Output: called variants")
+$intermediate_process(gatk_mergeVcfs, 'GATK MergeVcfs', 'Output: unfiltered VCF')
+$output_process(filter_vcf, "Filter VCF", "Output: Filtered VCF")
+
+reference_genome -d-> gatk_splitIntervals
+gatk_splitIntervals -d-> call_deepsomatic
+call_deepsomatic -d-> gatk_mergeVcfs
+tumor_bam -d-> call_deepsomatic
+normal_bam -d-> call_deepsomatic
+
+
+gatk_mergeVcfs -d-> filter_vcf: // raw.vcf //
+
+$add_legend("left")
+
+@enduml
+
+@enduml
