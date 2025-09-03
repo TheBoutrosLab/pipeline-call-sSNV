@@ -115,6 +115,7 @@ process call_sSNV_DeepSomatic {
         --logging_dir=log \
         --intermediate_results_dir=work \
         --regions=${intervals} \
+        --use_default_pon_filtering=true
 
     export VCF_CALLS=`zgrep -v ^# ${vcf_filename} | wc -l`
     export GVCF_CALLS=`zgrep -v ^# ${gvcf_filename} | wc -l`
