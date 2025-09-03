@@ -14,9 +14,8 @@ Docker Images:
         interval_id: interval ID
     params:
         params.workflow_output_dir: string(path)
-        params.log_output_dir: string(path)
         params.save_intermediate_files: bool.
-        params.docker_image_gatk: string
+        params.docker_image_GATK: string
 */
 process convert_IntervalListToBed_GATK {
     container params.docker_image_GATK
@@ -49,17 +48,21 @@ process convert_IntervalListToBed_GATK {
     Nextflow module for running DeepVariant
 
     input:
-        sample_id: sample ID
-        bam: path to sample BAM
-        bam_index: path to BAM index
         intervals: path to BED format intervals
         interval_id: interval ID
+        tumor_bam: path to tumor BAM
+        tumor_bam_index: path to tumor BAM index
+        normal_bam: path to normal BAM
+        normal_bam_index: path to normal BAM index
+        reference_fasta: path to reference FASTA
+        reference_index: path to reference FASTA index
+        reference_dict: path to reference dictionary
 
     params:
         params.output_dir_base: string(path)
-        params.log_output_dir: string(path)
         params.save_intermediate_files: bool.
-        params.docker_image_deepvariant: string
+        params.docker_image_deepsomatic: string
+        params.exome: bool.
 */
 process call_sSNV_DeepSomatic {
     container params.docker_image_deepsomatic
