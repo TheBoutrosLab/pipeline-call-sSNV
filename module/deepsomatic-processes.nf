@@ -1,6 +1,6 @@
 log.info """\
 ====================================
-          M U T E C T 2
+        D E E P S O M A T I C
 ====================================
 Docker Images:
 - docker_image_GATK:           ${params.docker_image_GATK}
