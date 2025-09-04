@@ -25,8 +25,8 @@ process convert_IntervalListToBed_GATK {
         pattern: "*-contig.bed",
         enabled: params.save_intermediate_files
 
-    ext log_dir: { "DeepSomatic-${params.deepsomatic_version}/${task.process.split(':')[-1]}" }
-    ext log_dir_suffix: { "${interval_id}" }
+    ext log_dir: { "DeepSomatic-${params.deepsomatic_version}/${task.process.split(':')[-1]}/" },
+        log_dir_suffix: { "${interval_id}" }
 
     input:
     tuple val(interval_id), path(intervals)
@@ -74,8 +74,8 @@ process call_sSNV_DeepSomatic {
                pattern: "*.vcf.gz*",
                enabled: params.save_intermediate_files
 
-    ext log_dir: { "DeepSomatic-${params.deepsomatic_version}/${task.process.split(':')[-1]}" }
-    ext log_dir_suffix: { "${interval_id}" }
+    ext log_dir: { "DeepSomatic-${params.deepsomatic_version}/${task.process.split(':')[-1]}/" },
+        log_dir_suffix: { "${interval_id}" }
 
     input:
     tuple val(interval_id), path(intervals)
