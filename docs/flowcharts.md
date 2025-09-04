@@ -5,6 +5,7 @@
   - [Strelka2](#strelka2)
   - [Mutect2](#mutect2)
   - [MuSE](#muse)
+  - [DeepSomatic](#deepsomatic)
 - [Variant Intersection](#variant-intersection)
   - [BCFtools, VennDiagram and vcf2maf](#variant-intersection)
 
@@ -50,6 +51,14 @@ Docker Image: broadinstitute/gatk:4.2.4.1
 MuSE source: https://github.com/wwylab/MuSE
 Version: 2.0 (Released on Aug 25, 2021)
 GitHub Package: https://github.com/uclahs-cds/docker-MuSE/pkgs/container/muse
+
+### DeepSomatic
+![alt text](deepsomatic_chart.svg?raw=true)
+#### Tools
+##### DeepSomatic
+DeepSomatic Source: https://github.com/google/deepsomatic
+Version:  (Released on May 13, 2025)
+Docker Image: google/deepsomatic:1.9.0
 
 ## Variant Intersection
 ![alt text](intersect_chart.svg?raw=true)

@@ -1,4 +1,4 @@
-@startuml neusomatic_chart
+@startuml deepsomatic_chart
 
 !include pipeline_elements.iuml!string_functions
 !include pipeline_elements.iuml!input_rect
