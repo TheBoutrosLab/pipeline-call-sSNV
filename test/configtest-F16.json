@@ -67,6 +67,10 @@
           "cpus": "6",
           "memory": "6 GB"
         },
+        "call_sSNV_DeepSomatic": {
+          "cpus": "4",
+          "memory": "15 GB"
+        },
         "call_sSNV_MuSE": {
           "cpus": "6",
           "memory": "24 GB"
@@ -88,6 +92,10 @@
           "memory": "1 GB"
         },
         "convert_BAM2Pileup_SAMtools": {
+          "cpus": "1",
+          "memory": "1 GB"
+        },
+        "convert_IntervalListToBed_GATK": {
           "cpus": "1",
           "memory": "1 GB"
         },
@@ -122,12 +130,14 @@
       "call_ssnv_r_version": "dev",
       "dataset_id": "TWGSAMIN",
       "dbSNP": "/hot/resource/database/dbSNP-155/original/GRCh38/GCF_000001405.39.gz",
+      "deepsomatic_version": "1.9.0",
       "docker_container_registry": "ghcr.io/uclahs-cds",
       "docker_image_BCFtools": "ghcr.io/uclahs-cds/bcftools:1.21",
       "docker_image_GATK": "broadinstitute/gatk:4.6.1.0",
       "docker_image_MuSE": "ghcr.io/uclahs-cds/muse:2.1.2",
       "docker_image_bam_readcount": "ghcr.io/uclahs-cds/bam_readcount:1.0.1",
       "docker_image_bpg": "ghcr.io/uclahs-cds/boutroslabplottinggeneral:7.1.0",
+      "docker_image_deepsomatic": "google/deepsomatic:1.9.0",
       "docker_image_manta": "ghcr.io/uclahs-cds/manta:1.6.0",
       "docker_image_r_VennDiagram": "ghcr.io/uclahs-cds/call-ssnv-r:dev",
       "docker_image_somaticsniper": "ghcr.io/uclahs-cds/somaticsniper:1.0.5.0",
@@ -183,6 +193,12 @@
             "strategy": "add"
           }
         },
+        "call_sSNV_DeepSomatic": {
+          "memory": {
+            "operand": "10 GB",
+            "strategy": "add"
+          }
+        },
         "call_sSNV_MuSE": {
           "memory": {
             "operand": "8 GB",
@@ -217,6 +233,12 @@
           "memory": {
             "operand": "5 GB",
             "strategy": "add"
+          }
+        },
+        "convert_IntervalListToBed_GATK": {
+          "memory": {
+            "operand": "2",
+            "strategy": "exponential"
           }
         },
         "create_IndelCandidate_SAMtools": {
@@ -374,6 +396,15 @@
         "cpus": "6",
         "memory": "6 GB"
       },
+      "withName:call_sSNV_DeepSomatic": {
+        "cpus": "4",
+        "memory": {
+          "1": "15 GB",
+          "2": "25 GB",
+          "3": "31 GB",
+          "closure": "retry_updater(15 GB, add, 10 GB, $task.attempt, memory)"
+        }
+      },
       "withName:call_sSNV_MuSE": {
         "cpus": "6",
         "memory": {
@@ -429,6 +460,15 @@
           "2": "6 GB",
           "3": "11 GB",
           "closure": "retry_updater(1 GB, add, 5 GB, $task.attempt, memory)"
+        }
+      },
+      "withName:convert_IntervalListToBed_GATK": {
+        "cpus": "1",
+        "memory": {
+          "1": "1 GB",
+          "2": "2 GB",
+          "3": "4 GB",
+          "closure": "retry_updater(1 GB, exponential, 2, $task.attempt, memory)"
         }
       },
       "withName:create_IndelCandidate_SAMtools": {
@@ -504,7 +544,8 @@
       "somaticsniper",
       "strelka2",
       "mutect2",
-      "muse"
+      "muse",
+      "deepsomatic"
     ],
     "workDir": "/scratch/8543"
   }
