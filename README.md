@@ -14,6 +14,7 @@
        - [Strelka2](#strelka2-1)
        - [Mutect2](#gatk-mutect2)
        - [MuSE](#muse-1)
+       - [DeepSomatic](#deepsomatic-1)
     - [Variant Intersection](#pipeline-steps---variant-intersection)
        - [BCFtools and VennDiagram](#pipeline-steps---variant-intersection)
        - [vcf2maf](#vcf2maf)
@@ -27,11 +28,11 @@
   - [License](#license)
 
 ## Overview
-The call-sSNV nextflow pipeline performs somatic SNV calling given a pair of tumor/normal BAM files. Four somatic SNV callers are available: SomaticSniper, Strelka2, Mutect2 and MuSE. The user may request one or more callers, and each caller produces an independently generated filtered VCF file.
+The call-sSNV nextflow pipeline performs somatic SNV calling given a pair of tumor/normal BAM files. Five somatic SNV callers are available: SomaticSniper, Strelka2, Mutect2, MuSE, and DeepSomatic. The user may request one or more callers, and each caller produces an independently generated filtered VCF file.
 
 If two or more callers are requested, additional output includes both a VCF and an MAF file with the set of SNVs shared by two or more callers, and a Venn Diagram showing counts of shared and private SNVs.
 
-SomaticSniper, Strelka2, and MuSE require there to be **exactly one pair of input tumor/normal** BAM files, but Mutect2 will take tumor-only input (no paired normal), as well as tumor/normal BAM pairs for multiple samples from the same individual.
+SomaticSniper, Strelka2, MuSE, and DeepSomatic require there to be **exactly one pair of input tumor/normal** BAM files, but Mutect2 will take tumor-only input (no paired normal), as well as tumor/normal BAM pairs for multiple samples from the same individual.
 
 ### Somatic SNV callers:
 * [SomaticSniper](https://github.com/genome/somatic-sniper) is an older tool yielding high specificity single nucleotide somatic variants.
@@ -41,6 +42,8 @@ SomaticSniper, Strelka2, and MuSE require there to be **exactly one pair of inpu
 * [GATK Mutect2](https://gatk.broadinstitute.org/hc/en-us/articles/360037593851-Mutect2) calls somatic short mutations via local assembly of haplotypes.
 
 * [MuSE](https://github.com/wwylab/MuSE) accounts for tumor heterogeneity and calls single nucleotide somatic variants.
+
+* [DeepSomatic](https://github.com/google/deepsomatic) detects somatic mutations using a deep neural network.
 
 ## How To Run
 Below is a summary of how to run the pipeline.  See [here](https://uclahs-cds.atlassian.net/wiki/spaces/BOUTROSLAB/pages/3197004/How+to+run+a+nextflow+pipeline) for more information on running Nextflow pipelines.
@@ -61,6 +64,7 @@ nextflow run path/to/main.nf -config path/to/input.config -params-file input.yam
 ### [Strelka2](docs/flowcharts.md#strelka2)
 ### [Mutect2](docs/flowcharts.md#mutect2)
 ### [MuSE](docs/flowcharts.md#muse)
+### [DeepSomatic](docs/flowcharts.md#deepsomatic)
 ## Flow Diagrams - Variant Intersection
 ### [BCFtools intersection and VennDiagram visualization using R](docs/flowcharts.md#intersect)
 
@@ -114,6 +118,18 @@ Pre-filtering and calculating position-specific summary statistics using the Mar
 Computes tier-based cutoffs from a sample-specific error model.
 #### 3.Filter VCF
 `MuSE` output has SNVs labeled as `PASS` or one of `Tier 1-5` for the lower confidence calls (`Tier 5` is lowest). This step keeps only SNVs labeled `PASS`.
+
+### DeepSomatic
+#### 1. Define intervals for scattering
+The `params.intersect_regions` of the reference genome are split into x intervals for parallelization, where x is defined by `params.scatter_count`.
+#### 2. Call somatic variants
+Call somatic variants with `DeepSomatic`.
+#### 3. Merge
+Merge scattered VCFs.
+#### 4. Split VCF
+Split filtered VCF into separate files for each variant type: SNVs, MNVs and INDELs.
+#### 5. Filter VCF
+Filter for `PASS` variants.
 
 ## Pipeline Steps - Variant Intersection
 If two or more algorithms were selected the Intersect workflow will run. Currently the resulting VCF and MAF files include any SNVs found by two or more algorithms.
@@ -242,6 +258,7 @@ base_resource_update {
 |-------------|----|--------|-------------------------------------------|
 | dbSNP | yes | path | The path to [NCBI's dbSNP database](https://www.ncbi.nlm.nih.gov/snp/) of known SNPs in VCF format, e.g. `GCF_000001405.40.gz` |
 
+
 #### Variant Intersection Specific Configuration
 | Input       | Required | Type   | Description                               |
 |-------------|----|--------|-------------------------------------------|
@@ -259,6 +276,7 @@ base_resource_update {
 | Mutect2-{version}_{sample_id}_MNV.vcf.gz        | .vcf.gz         | Filtered MNV VCF (mutect2)      |
 | Mutect2-{version}_{sample_id}_filteringStats.tsv        | .tsv         | FilterMutectCalls output (mutect2 QC)      |
 | MuSE-{version}_{sample_id}_SNV.vcf.gz        | .vcf.gz         | Filtered SNV VCF (MuSE)   |
+| NeuSomatic-{version}_{sample_id}_SNV.vcf.gz        | .vcf.gz         | Filtered SNV VCF (NeuSomatic)   |
 | report.html, timeline.html, trace.txt          | .html, .txt | Nextflow logs                 |
 
 | Intersect Outputs                                         | Type         | Description                   |
@@ -339,6 +357,7 @@ Duration: 1d 11h 6m 54s
 2.	Kim, S. et al. Strelka2: fast and accurate calling of germline and somatic variants. Nat. Methods 15, 591–594 (2018).
 3.	McKenna, A. et al. The Genome Analysis Toolkit: A MapReduce framework for analyzing next-generation DNA sequencing data. Genome Res. 20, 1297–1303 (2010).
 4.	Fan, Y. et al. MuSE: accounting for tumor heterogeneity using a sample-specific error model improves sensitivity and specificity in mutation calling from sequencing data. Genome Biol. 17, 178 (2016).
+5. Park J, et al. DeepSomatic: Accurate somatic small variant discovery for multiple sequencing technologies. bioRxiv [Preprint]. 2024 Aug 19:2024.08.16.608331. doi: 10.1101/2024.08.16.608331. PMID: 39229187; PMCID: PMC11370364.
 
 ## License
 
@@ -348,7 +367,7 @@ pipeline-call-sSNV is licensed under the GNU General Public License version 2. S
 
 This pipeline performs somatic SNV calling on a pair of normal/tumor BAMs, utilizing SomaticSniper, Strelka2, Mutect2 and MuSE.
 
-Copyright (C) 2020-2024 University of California Los Angeles ("Boutros Lab") All rights reserved.
+Copyright (C) 2020-2025 University of California Los Angeles ("Boutros Lab") All rights reserved.
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
 
