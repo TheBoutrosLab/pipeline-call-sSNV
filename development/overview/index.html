@@ -100,7 +100,7 @@
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">Overview</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/uclahs-cds/pipeline-call-sSNV/blob/7adf1494d2c57bd6b7e63240c13f578919bbe2ae/README.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/uclahs-cds/pipeline-call-sSNV/blob/f82b567a0e5b42c72913a7a68d66b7499dff7e7d/README.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -109,9 +109,9 @@
             <div class="section" itemprop="articleBody">
               
                 <h2 id="overview">Overview</h2>
-<p>The call-sSNV nextflow pipeline performs somatic SNV calling given a pair of tumor/normal BAM files. Four somatic SNV callers are available: SomaticSniper, Strelka2, Mutect2 and MuSE. The user may request one or more callers, and each caller produces an independently generated filtered VCF file.</p>
+<p>The call-sSNV nextflow pipeline performs somatic SNV calling given a pair of tumor/normal BAM files. Five somatic SNV callers are available: SomaticSniper, Strelka2, Mutect2, MuSE, and DeepSomatic. The user may request one or more callers, and each caller produces an independently generated filtered VCF file.</p>
 <p>If two or more callers are requested, additional output includes both a VCF and an MAF file with the set of SNVs shared by two or more callers, and a Venn Diagram showing counts of shared and private SNVs.</p>
-<p>SomaticSniper, Strelka2, and MuSE require there to be <strong>exactly one pair of input tumor/normal</strong> BAM files, but Mutect2 will take tumor-only input (no paired normal), as well as tumor/normal BAM pairs for multiple samples from the same individual.</p>
+<p>SomaticSniper, Strelka2, MuSE, and DeepSomatic require there to be <strong>exactly one pair of input tumor/normal</strong> BAM files, but Mutect2 will take tumor-only input (no paired normal), as well as tumor/normal BAM pairs for multiple samples from the same individual.</p>
 <h3 id="somatic-snv-callers">Somatic SNV callers:</h3>
 <ul>
 <li>
@@ -125,6 +125,9 @@
 </li>
 <li>
 <p><a href="https://github.com/wwylab/MuSE">MuSE</a> accounts for tumor heterogeneity and calls single nucleotide somatic variants.</p>
+</li>
+<li>
+<p><a href="https://github.com/google/deepsomatic">DeepSomatic</a> detects somatic mutations using a deep neural network.</p>
 </li>
 </ul>
               

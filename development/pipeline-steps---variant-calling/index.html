@@ -113,6 +113,20 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#deepsomatic">DeepSomatic</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1-define-intervals-for-scattering_1">1. Define intervals for scattering</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-call-somatic-variants">2. Call somatic variants</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-merge_1">3. Merge</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#4-split-vcf">4. Split VCF</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5-filter-vcf">5. Filter VCF</a>
+    </li>
+        </ul>
+    </li>
     </ul>
                 </li>
               </ul>
@@ -152,7 +166,7 @@
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">Pipeline Steps - Variant Calling</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/uclahs-cds/pipeline-call-sSNV/blob/7adf1494d2c57bd6b7e63240c13f578919bbe2ae/README.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/uclahs-cds/pipeline-call-sSNV/blob/f82b567a0e5b42c72913a7a68d66b7499dff7e7d/README.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -203,6 +217,17 @@ ii. filter VCF output from step <code>i</code> using tumor indel pileup (from st
 <p>Computes tier-based cutoffs from a sample-specific error model.</p>
 <h4 id="3filter-vcf">3.Filter VCF</h4>
 <p><code>MuSE</code> output has SNVs labeled as <code>PASS</code> or one of <code>Tier 1-5</code> for the lower confidence calls (<code>Tier 5</code> is lowest). This step keeps only SNVs labeled <code>PASS</code>.</p>
+<h3 id="deepsomatic">DeepSomatic</h3>
+<h4 id="1-define-intervals-for-scattering_1">1. Define intervals for scattering</h4>
+<p>The <code>params.intersect_regions</code> of the reference genome are split into x intervals for parallelization, where x is defined by <code>params.scatter_count</code>.</p>
+<h4 id="2-call-somatic-variants">2. Call somatic variants</h4>
+<p>Call somatic variants with <code>DeepSomatic</code>.</p>
+<h4 id="3-merge_1">3. Merge</h4>
+<p>Merge scattered VCFs.</p>
+<h4 id="4-split-vcf">4. Split VCF</h4>
+<p>Split filtered VCF into separate files for each variant type: SNVs, MNVs and INDELs.</p>
+<h4 id="5-filter-vcf">5. Filter VCF</h4>
+<p>Filter for <code>PASS</code> variants.</p>
               
             </div>
           </div><footer>
