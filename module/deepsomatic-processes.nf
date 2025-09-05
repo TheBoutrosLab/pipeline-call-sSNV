@@ -45,7 +45,7 @@ process convert_IntervalListToBed_GATK {
 }
 
 /*
-    Nextflow module for running DeepVariant
+    Nextflow module for running DeepSomatic
 
     input:
         intervals: path to BED format intervals
