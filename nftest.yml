@@ -230,6 +230,24 @@ cases:
         expect: /hot/software/pipeline/pipeline-call-sSNV/Nextflow/development/test-output/MuSE-2.0.3_TWGSAMIN_S2-v1.1.5_SNV.vcf.gz
         script: test/assert_vcf.sh
 
+  - name: a_mini-deepsomatic
+    message: test development branch using deepsomatic and standard paired tumor and normal a-mini-n2 input
+    nf_script: ./main.nf
+    nf_config: ./test/config/a_mini-deepsomatic.config
+    params_file: ./test/yaml/a_mini_n2-std-input.yaml
+    skip: true
+    verbose: true
+    asserts:
+      - actual: call-sSNV-*/S2-v1.1.5/DeepSomatic-*/output/DeepSomatic-*_TWGSAMIN_S2-v1.1.5_SNV-split.vcf.gz
+        expect: /hot/software/pipeline/pipeline-call-sSNV/Nextflow/development/test-output/DeepSomatic-1.9.0_TWGSAMIN_S2-v1.1.5_SNV-split.vcf.gz
+        script: test/assert_vcf.sh
+      - actual: call-sSNV-*/S2-v1.1.5/DeepSomatic-*/output/DeepSomatic-*_TWGSAMIN_S2-v1.1.5_MNV-split.vcf.gz
+        expect: /hot/software/pipeline/pipeline-call-sSNV/Nextflow/development/test-output/DeepSomatic-1.9.0_TWGSAMIN_S2-v1.1.5_MNV-split.vcf.gz
+        script: test/assert_vcf.sh
+      - actual: call-sSNV-*/S2-v1.1.5/DeepSomatic-*/output/DeepSomatic-*_TWGSAMIN_S2-v1.1.5_Indel-split.vcf.gz
+        expect: /hot/software/pipeline/pipeline-call-sSNV/Nextflow/development/test-output/DeepSomatic-1.9.0_TWGSAMIN_S2-v1.1.5_Indel-split.vcf.gz
+        script: test/assert_vcf.sh
+
   - name: a_mini-all-tools-vcf-input
     message: test development branch a-mini four VCFs input
     nf_script: ./main.nf

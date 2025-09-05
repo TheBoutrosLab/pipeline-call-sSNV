@@ -74,6 +74,25 @@
                 "max": 2
             }
         },
+        "convert_IntervalListToBed_GATK": {
+            "cpus": {
+                "min": 1,
+                "fraction": 0.5,
+                "max": 1
+            },
+            "memory": {
+                "min": "1 GB",
+                "fraction": 0.25,
+                "max": "1 GB"
+            }
+        },
+        "call_sSNV_DeepSomatic": {
+            "cpus": {
+                "min": 2,
+                "fraction": 1,
+                "max": 2
+            }
+        },
         "plot_VennDiagram_R": {
             "cpus": {
                 "min": 1,
@@ -300,6 +319,42 @@
                 }
             }
         },
+        "convert_IntervalListToBed_GATK": {
+            "cpus": {
+                "min": 1,
+                "fraction": 0.13,
+                "max": 1
+            },
+            "memory": {
+                "min": "1 GB",
+                "fraction": 0.07,
+                "max": "1 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "call_sSNV_DeepSomatic": {
+            "cpus": {
+                "min": 4,
+                "fraction": 0.4,
+                "max": 4
+            },
+            "memory": {
+                "min": "15 GB",
+                "fraction": 0.95,
+                "max": "15 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "add",
+                    "operand": "10 GB"
+                }
+            }
+        },
         "concat_VCFs_BCFtools": {
             "cpus": {
                 "min": 1,
@@ -509,6 +564,42 @@
                 "memory": {
                     "strategy": "add",
                     "operand": "16 GB"
+                }
+            }
+        },
+        "convert_IntervalListToBed_GATK": {
+            "cpus": {
+                "min": 1,
+                "fraction": 0.0625,
+                "max": 1
+            },
+            "memory": {
+                "min": "1 GB",
+                "fraction": 0.033,
+                "max": "1 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "call_sSNV_DeepSomatic": {
+            "cpus": {
+                "min": 4,
+                "fraction": 0.25,
+                "max": 4
+            },
+            "memory": {
+                "min": "15 GB",
+                "fraction": 0.5,
+                "max": "15 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "add",
+                    "operand": "10 GB"
                 }
             }
         },
@@ -742,6 +833,42 @@
                 }
             }
         },
+        "convert_IntervalListToBed_GATK": {
+            "cpus": {
+                "min": 1,
+                "fraction": 0.03,
+                "max": 1
+            },
+            "memory": {
+                "min": "1 GB",
+                "fraction": 0.015,
+                "max": "1 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "call_sSNV_DeepSomatic": {
+            "cpus": {
+                "min": 4,
+                "fraction": 0.12,
+                "max": 4
+            },
+            "memory": {
+                "min": "20 GB",
+                "fraction": 0.32,
+                "max": "20 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "add",
+                    "operand": "10 GB"
+                }
+            }
+        },
         "plot_VennDiagram_R": {
             "cpus": {
                 "min": 1,
@@ -817,9 +944,9 @@
                 "max": 1
             },
             "memory": {
-                "min": "5 GB",
-                "fraction": 0.35,
-                "max": "5 GB"
+                "min": "2 GB",
+                "fraction": 0.01,
+                "max": "2 GB"
             },
             "retry_strategy": {
                 "memory": {
@@ -969,6 +1096,42 @@
                 "memory": {
                     "strategy": "add",
                     "operand": "24 GB"
+                }
+            }
+        },
+        "convert_IntervalListToBed_GATK": {
+            "cpus": {
+                "min": 1,
+                "fraction": 0.01,
+                "max": 1
+            },
+            "memory": {
+                "min": "1 GB",
+                "fraction": 0.01,
+                "max": "1 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "call_sSNV_DeepSomatic": {
+            "cpus": {
+                "min": 4,
+                "fraction": 0.056,
+                "max": 4
+            },
+            "memory": {
+                "min": "20 GB",
+                "fraction": 0.14,
+                "max": "20 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "add",
+                    "operand": "10 GB"
                 }
             }
         },
@@ -1202,6 +1365,42 @@
                 }
             }
         },
+        "convert_IntervalListToBed_GATK": {
+            "cpus": {
+                "min": 1,
+                "fraction": 0.01,
+                "max": 1
+            },
+            "memory": {
+                "min": "1 GB",
+                "fraction": 0.01,
+                "max": "1 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "call_sSNV_DeepSomatic": {
+            "cpus": {
+                "min": 4,
+                "fraction": 0.0625,
+                "max": 4
+            },
+            "memory": {
+                "min": "40 GB",
+                "fraction": 0.04,
+                "max": "40 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "add",
+                    "operand": "20 GB"
+                }
+            }
+        },
         "plot_VennDiagram_R": {
             "cpus": {
                 "min": 1,
@@ -1277,9 +1476,9 @@
                 "max": 1
             },
             "memory": {
-                "min": "3 GB",
-                "fraction": 0.04,
-                "max": "8 GB"
+                "min": "1 GB",
+                "fraction": 0.01,
+                "max": "2 GB"
             },
             "retry_strategy": {
                 "memory": {
@@ -1429,6 +1628,42 @@
                 "memory": {
                     "strategy": "add",
                     "operand": "24 GB"
+                }
+            }
+        },
+        "convert_IntervalListToBed_GATK": {
+            "cpus": {
+                "min": 1,
+                "fraction": 0.01,
+                "max": 1
+            },
+            "memory": {
+                "min": "1 GB",
+                "fraction": 0.01,
+                "max": "1 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "call_sSNV_DeepSomatic": {
+            "cpus": {
+                "min": 4,
+                "fraction": 0.17,
+                "max": 4
+            },
+            "memory": {
+                "min": "20 GB",
+                "fraction": 0.1,
+                "max": "20 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "add",
+                    "operand": "10 GB"
                 }
             }
         },
