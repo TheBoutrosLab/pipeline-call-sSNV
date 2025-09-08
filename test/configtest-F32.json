@@ -522,13 +522,6 @@
       "enabled": true,
       "file": "/tmp/outputs/call-sSNV-VER.SI.ON/tumor-id/log-call-sSNV-VER.SI.ON-19970704T165655Z/nextflow-log/trace.txt"
     },
-    "valid_algorithms": [
-      "somaticsniper",
-      "strelka2",
-      "mutect2",
-      "muse",
-      "deepsomatic"
-    ],
     "workDir": "/scratch/8543"
   }
 }
