@@ -55,7 +55,10 @@
       "GATK_version": "4.6.1.0",
       "MuSE_version": "2.1.2",
       "algorithm": [
-        "somaticsniper"
+        "somaticsniper",
+        "strelka2",
+        "mutect2",
+        "muse"
       ],
       "bam_readcount_version": "1.0.1",
       "base_allocations": {
