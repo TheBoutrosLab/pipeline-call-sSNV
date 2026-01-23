@@ -168,7 +168,7 @@ process run_LearnReadOrientationModel_GATK {
     set -euo pipefail
     gatk LearnReadOrientationModel --java-options \"-Xmx${(task.memory - params.gatk_command_mem_diff).getMega()}m\" \
     $f1r2 \
-    --tmp-dir "`pwd`" \
+    --tmp-dir "\$(pwd)" \
     -O read-orientation-model.tar.gz
     """
     }
