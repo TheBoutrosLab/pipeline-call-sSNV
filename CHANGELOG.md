@@ -15,7 +15,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Change `setup_docker_cpus` method to properly incorporate containerOptions set at process level
 - Parameterize container mounting flags
 
 ## [8.2.0] - 2025-05-01
