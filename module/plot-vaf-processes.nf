@@ -10,7 +10,7 @@ Docker Images:
 
 process calculate_adjVAF_Python {
     container params.docker_image_src_util
-    containerOptions "-v ${projectDir}:${projectDir}"
+    containerOptions "${params.container_mount_flag} ${projectDir}:${projectDir}"
 
     publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
         mode: "copy",
@@ -38,7 +38,7 @@ process calculate_adjVAF_Python {
 
 process plot_adjVAF_R {
     container params.docker_image_bpg
-    containerOptions "-v ${projectDir}:${projectDir}"
+    containerOptions "${params.container_mount_flag} ${projectDir}:${projectDir}"
 
     publishDir path: "${params.workflow_output_dir}/output",
         mode: "copy",
