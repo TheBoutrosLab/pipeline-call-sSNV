@@ -1,7 +1,7 @@
 [submodule "external/pipeline-Nextflow-config"]
 	path = external/pipeline-Nextflow-config
-	url = git@github.com:uclahs-cds/pipeline-Nextflow-config.git
+	url = git@github.com:TheBoutrosLab/pipeline-Nextflow-config.git
 	branch = main
 [submodule "external/pipeline-Nextflow-module"]
 	path = external/pipeline-Nextflow-module
-	url = git@github.com:uclahs-cds/pipeline-Nextflow-module.git
+	url = git@github.com:TheBoutrosLab/pipeline-Nextflow-module.git
