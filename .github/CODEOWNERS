@@ -1,4 +1,2 @@
-# Test CODEOWNERS
 # Default owner(s)
-*	@tyamaguchi-ucla @yashpatel6 @maotian06 @sorelfitzgibbon @uclahs-cds/nextflow-wg
-# Folder specific owner
+*	@TheBoutrosLab/nextflow-wg
