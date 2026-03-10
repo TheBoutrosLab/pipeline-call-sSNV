@@ -4,7 +4,7 @@ name: PlantUML Composite Action test
 on:
   push:
     paths:
-      - '**.puml'
+      - 'docs/**.puml'
   workflow_dispatch:
 
 jobs:
@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Generate PUML diagrams
-        uses: uclahs-cds/tool-PlantUML-action@v1
+        uses: theboutroslab/tool-PlantUML-action@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           ghcr-username: ${{ github.actor }}
