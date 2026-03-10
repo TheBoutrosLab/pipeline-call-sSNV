@@ -3,14 +3,13 @@ on:
   release:
     types: [published]
 
-permissions:
-  contents: write
+permissions: read-all
 jobs:
   add_release_asset:
     runs-on: ubuntu-latest
     name: A job to add a release asset with submodules
     steps:
       - id: release-asset
-        uses: uclahs-cds/tool-Nextflow-action/add-source-with-submodules@v1
+        uses: theboutroslab/tool-Nextflow-action/add-source-with-submodules@v1
         with:
-          my-token: ${{ secrets.GITHUB_TOKEN }}
+          my-token: ${{ secrets.BL_SBP_REPO_READ_TOKEN_YP }}
