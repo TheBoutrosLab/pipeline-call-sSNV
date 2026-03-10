@@ -1,6 +1,6 @@
 # pipeline-call-sSNV
 
-[![GitHub release](https://img.shields.io/github/v/release/uclahs-cds/pipeline-call-sSNV)](https://github.com/uclahs-cds/pipeline-call-sSNV/actions/workflows/prepare-release.yaml)
+[![GitHub release](https://img.shields.io/github/v/release/theboutroslab/pipeline-call-sSNV)](https://github.com/theboutroslab/pipeline-call-sSNV/actions/workflows/prepare-release.yaml)
 
 - [call-sSNV](#pipeline-call-ssnv)
   - [Overview](#overview)
@@ -23,8 +23,8 @@
   - [Outputs](#outputs)
   - [Performance Validation and Resource Requirements](#performance-validation)
   - [References](#references)
-  - [Discussions](https://github.com/uclahs-cds/pipeline-call-sSNV/discussions)
-  - [Contributors](https://github.com/uclahs-cds/template-NextflowPipeline/graphs/contributors)
+  - [Discussions](https://github.com/theboutroslab/pipeline-call-sSNV/discussions)
+  - [Contributors](https://github.com/theboutroslab/template-NextflowPipeline/graphs/contributors)
   - [License](#license)
 
 ## Overview
@@ -140,7 +140,7 @@ Determines presence/absence of SNVs found in two or more of each algorithm's set
 ### BCFtools concat
 Concatenates the 2+ algorithm `consensus` SNVs into one VCF (SNV-concat.vcf.gz).  The output header is a uniquified concatenation of all input VCF headers.  The output fields `INFO`, `FORMAT`, `NORMAL` and `TUMOR` are from the first listed VCF that has the SNV. Input VCFs are sorted alphanumerically by the algorithm name.
 ### vcf2maf
-Converts SNV-concat.vcf.gz from step 3 into [MAF format](https://docs.gdc.cancer.gov/Data/File_Formats/MAF_Format/).  Output includes allele counts and flanking basepairs, but most fields are blank.  Details can be found [here](https://github.com/uclahs-cds/pipeline-call-sSNV/discussions/222#discussion-5512332).
+Converts SNV-concat.vcf.gz from step 3 into [MAF format](https://docs.gdc.cancer.gov/Data/File_Formats/MAF_Format/).  Output includes allele counts and flanking basepairs, but most fields are blank.  Details can be found [here](https://github.com/theboutroslab/pipeline-call-sSNV/discussions/222#discussion-5512332).
 
 ### VAF Plotting
 A stripplot is generated to display the distribution of allele frequencies for sets of SNVs categorized by the number of callers that include the variant.
@@ -185,10 +185,10 @@ input:
 | `docker_container_registry` | no | string | Registry containing tool Docker images, optional. Default: `ghcr.io/uclahs-cds` |
 | `base_resource_update` | optional | namespace | Namespace of parameters to update base resource allocations in the pipeline. Usage and structure are detailed in `template.config` and below. |
 
- *Providing `intersect_regions` is required and will limit the final output to just those regions.  All regions of the reference genome could be provided as a `bed` file with all contigs, however it is HIGHLY recommended to remove `decoy` contigs from the human reference genome. Including these thousands of small contigs will require the user to increase available memory for `Mutect2` and will cause a very long runtime for `Strelka2`. See [Discussion here](https://github.com/uclahs-cds/pipeline-call-sSNV/discussions/216).
+ *Providing `intersect_regions` is required and will limit the final output to just those regions.  All regions of the reference genome could be provided as a `bed` file with all contigs, however it is HIGHLY recommended to remove `decoy` contigs from the human reference genome. Including these thousands of small contigs will require the user to increase available memory for `Mutect2` and will cause a very long runtime for `Strelka2`. See [Discussion here](https://github.com/theboutroslab/pipeline-call-sSNV/discussions/216).
 
  ### Base resource allocation updaters
-To optionally update the base resource (cpus or memory) allocations for processes, use the following structure and add the necessary parts to the [input.config](config/template.config) file. The default allocations can be found in `config/resources.json`. If available resources have matched cpus and memory within `90% - 1GB` of one of the pre-specified configurations, that configuration will be used.  Otherwise the default configuration will be used. A spreadsheet view of the resource configuration as of Dec 2024 is [here](https://github.com/uclahs-cds/pipeline-call-sSNV/discussions/328).  For very large or challanging input samples, we suggest using the `m64` configuration or similar.
+To optionally update the base resource (cpus or memory) allocations for processes, use the following structure and add the necessary parts to the [input.config](config/template.config) file. The default allocations can be found in `config/resources.json`. If available resources have matched cpus and memory within `90% - 1GB` of one of the pre-specified configurations, that configuration will be used.  Otherwise the default configuration will be used. A spreadsheet view of the resource configuration as of Dec 2024 is [here](https://github.com/theboutroslab/pipeline-call-sSNV/discussions/328).  For very large or challanging input samples, we suggest using the `m64` configuration or similar.
 
 
 ```Nextflow
