@@ -39,6 +39,9 @@
     "timeline.file"
   ],
   "expected_result": {
+    "apptainer": {
+      "enabled": false
+    },
     "docker": {
       "all_group_ids": "$(for i in `id --real --groups`; do echo -n \"--group-add=$i \"; done)",
       "enabled": true,
@@ -52,7 +55,7 @@
       "version": "VER.SI.ON"
     },
     "params": {
-      "BCFtools_version": "1.21",
+      "BCFtools_version": "1.22",
       "GATK_version": "4.6.1.0",
       "MuSE_version": "2.1.2",
       "algorithm": [
@@ -128,11 +131,12 @@
       "bpg_version": "7.1.0",
       "cache_intermediate_pipeline_steps": false,
       "call_ssnv_r_version": "dev",
+      "container_mount_flag": "-v",
       "dataset_id": "TWGSAMIN",
       "dbSNP": "/hot/resource/database/dbSNP-155/original/GRCh38/GCF_000001405.39.gz",
       "deepsomatic_version": "1.9.0",
       "docker_container_registry": "ghcr.io/uclahs-cds",
-      "docker_image_BCFtools": "ghcr.io/uclahs-cds/bcftools:1.21",
+      "docker_image_BCFtools": "ghcr.io/uclahs-cds/bcftools:1.22",
       "docker_image_GATK": "broadinstitute/gatk:4.6.1.0",
       "docker_image_MuSE": "ghcr.io/uclahs-cds/muse:2.1.2",
       "docker_image_bam_readcount": "ghcr.io/uclahs-cds/bam_readcount:1.0.1",
