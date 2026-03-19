@@ -12,7 +12,7 @@ Mutect2 Options:
 - gatk_command_mem_diff:          ${params.gatk_command_mem_diff}
 - scatter_count:                  ${params.scatter_count}
 - intervals:                      ${params.intersect_regions}
-- single tumor normal pair:       ${params.single_NT_paired}
+- sample mode:                    ${params.sample_moded}
 - germline resource:              ${params.germline_resource_gnomad_vcf}
 - contamination_table:            ${params.input.tumor.contamination_table}
 - panel of normals:               ${params.panel_of_normals_vcf}
