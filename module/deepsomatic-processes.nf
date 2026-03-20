@@ -105,7 +105,7 @@ process call_sSNV_DeepSomatic {
     mkdir work
 
     /opt/deepvariant/bin/deepsomatic/run_deepsomatic \
-        --model_type=${model_type}${sample_mode_extension} \
+        --model_type=${model_type_base}${sample_mode_extension} \
         --ref=${reference_fasta} \
         ${normal_input_args} \
         --reads_tumor=${tumor_bam} \
