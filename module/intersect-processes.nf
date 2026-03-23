@@ -28,11 +28,12 @@ process reorder_samples_BCFtools {
     path "*-reorder.vcf.gz", emit: gzvcf
 
     script:
+    sample_order = (params.sample_mode == 'tumor_only') ? "${tumor_id}" : "${tumor_id},${normal_id}"
     """
     set -euo pipefail
     infile=\$(basename ${gzvcf} .vcf.gz)
     outfile="\${infile}-reorder.vcf.gz"
-    bcftools view -s ${tumor_id},${normal_id} --output \${outfile} ${gzvcf}
+    bcftools view -s ${sample_order} --output \${outfile} ${gzvcf}
     """
     }
 
@@ -160,13 +161,14 @@ process convert_VCF_vcf2maf {
     path "*.maf", emit: maf
 
     script:
+    normal_argument = (params.sample_mode == 'tumor_only') ? "" : "--normal-id ${normal_id}"
     """
     set -euo pipefail
     perl /opt/vcf2maf.pl --inhibit-vep \
         --filter-vcf 0 \
         --ncbi-build ${params.ncbi_build} \
         --input-vcf ${vcf} \
-        --normal-id ${normal_id} \
+        ${normal_argument} \
         --tumor-id ${tumor_id} \
         --output-maf ${params.output_filename}_SNV-concat.maf \
         --ref-fasta ${reference} \
