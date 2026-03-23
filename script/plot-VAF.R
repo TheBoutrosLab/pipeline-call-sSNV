@@ -29,7 +29,7 @@ stripplot.data <- read.table(
     header = TRUE
     );
 
-# Indicate whether the combination has One/Two/Three/Four sSNV callers
+# Indicate whether the combination has One/Two/Three/Four/Five sSNV callers
 snvcaller.combination <- stripplot.data$combination;
 stripplot.data$num_of_callers <- 'Five';
 stripplot.data$num_of_callers[grep('1algorithm',snvcaller.combination)] <- 'One';
