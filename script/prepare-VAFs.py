@@ -12,7 +12,8 @@ ALLOWED_TOOLS = [
     'Mutect2',
     'Strelka2',
     'SomaticSniper',
-    'MuSE'
+    'MuSE',
+    'DeepSomatic',
 ]
 
 def parse_args() -> argparse.Namespace:
@@ -130,6 +131,11 @@ def get_vaf_mutect2(variant: dict, sample: str) -> Tuple[int, int]:
         return 0
     return alt_reads/total_reads
 
+def get_vaf_deepsomatic(variant: dict, sample: str) -> Tuple[int, int]:
+    """ Extract VAF from DeepSomatic variant """
+    sample_index = variant.samples.index(sample)
+    return float(variant.samples[sample_index]["VAF"])
+
 def does_variant_pass(variant: dict) -> bool:
     """ Does variant pass filter checks """
     return (variant.FILTER is None or (len(variant.FILTER) == 0))
@@ -150,7 +156,9 @@ def calculate_adjusted_vaf(sample_id: str, variant: dict, purity: float) -> floa
 
     raw_vaf = 0
 
-    if 'AD' in variant_data_keys:
+    if 'VAF' in variant_data_keys:
+        raw_vaf = get_vaf_deepsomatic(variant, sample)
+    elif 'AD' in variant_data_keys:
         raw_vaf = get_vaf_mutect2(variant, sample)
     elif 'DP4' in variant_data_keys:
         raw_vaf = get_vaf_somaticsniper(variant, sample)
