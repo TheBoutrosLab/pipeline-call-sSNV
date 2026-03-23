@@ -87,4 +87,12 @@ workflow deepsomatic {
             .set{ files_for_checksum }
 
         generate_sha512sum(files_for_checksum)
-    }
+
+    emit:
+        gzvcf = compress_index_VCF.out.index_out
+            .filter { it[0] == 'snps' }
+            .map{ it -> ["${it[1]}"] }
+        idx = compress_index_VCF.out.index_out
+            .filter { it[0] == 'snps' }
+            .map{ it -> ["${it[2]}"] }
+}
