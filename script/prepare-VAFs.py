@@ -134,7 +134,7 @@ def get_vaf_mutect2(variant: dict, sample: str) -> Tuple[int, int]:
 def get_vaf_deepsomatic(variant: dict, sample: str) -> Tuple[int, int]:
     """ Extract VAF from DeepSomatic variant """
     sample_index = variant.samples.index(sample)
-    return float(variant.samples[sample_index]["VAF"])
+    return float(variant.samples[sample_index]["VAF"][0])
 
 def does_variant_pass(variant: dict) -> bool:
     """ Does variant pass filter checks """
