@@ -28,7 +28,7 @@ process reorder_samples_BCFtools {
     path "*-reorder.vcf.gz", emit: gzvcf
 
     script:
-    sample_order = (params.sample_mode == 'tumor_only') ? "${tumor_id}" : "${tumor_id},${normal_id}"
+    sample_order = (params.sample_mode == 'tumor_only' || algorithm == 'DeepSomatic') ? "${tumor_id}" : "${tumor_id},${normal_id}"
     """
     set -euo pipefail
     infile=\$(basename ${gzvcf} .vcf.gz)
