@@ -29,12 +29,13 @@ stripplot.data <- read.table(
     header = TRUE
     );
 
-# Indicate whether the combination has One/Two/Three/Four sSNV callers
+# Indicate whether the combination has One/Two/Three/Four/Five sSNV callers
 snvcaller.combination <- stripplot.data$combination;
-stripplot.data$num_of_callers <- 'Four';
+stripplot.data$num_of_callers <- 'Five';
 stripplot.data$num_of_callers[grep('1algorithm',snvcaller.combination)] <- 'One';
 stripplot.data$num_of_callers[grep('2algorithm',snvcaller.combination)] <- 'Two';
 stripplot.data$num_of_callers[grep('3algorithm',snvcaller.combination)] <- 'Three';
+stripplot.data$num_of_callers[grep('4algorithm',snvcaller.combination)] <- 'Four';
 
 # Remove groups in which no sSNVs were called
 stripplot.data <- stripplot.data[stripplot.data$adjVAF != 0, ];
@@ -46,7 +47,8 @@ stripplot.data$num_of_callers <- factor(
         'One',
         'Two',
         'Three',
-        'Four'
+        'Four',
+        'Five'
         )
     );
 

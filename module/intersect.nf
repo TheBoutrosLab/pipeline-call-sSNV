@@ -69,6 +69,9 @@ workflow intersect {
             intersect_VCFs_BCFtools.out.isec,
             )
         intersect_vcfs = intersect_VCFs_BCFtools.out.gzvcf
+            .flatten()
+            .filter{ getToolName(it) != 'DeepSomatic' } // Exclude DeepSomatic for concatenation due to header mis-match
+            .collect()
             .map { sortVcfs(it) }
         concat_VCFs_BCFtools(
             intersect_vcfs,

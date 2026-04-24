@@ -127,11 +127,13 @@ if (params.input_type == 'bam') {
     Channel.empty().set { strelka2_gzvcf_ch }
     Channel.empty().set { muse_gzvcf_ch }
     Channel.empty().set { mutect2_gzvcf_ch }
+    Channel.empty().set { deepsomatic_gzvcf_ch }
 
     Channel.empty().set { somaticsniper_idx_ch }
     Channel.empty().set { strelka2_idx_ch }
     Channel.empty().set { muse_idx_ch }
     Channel.empty().set { mutect2_idx_ch }
+    Channel.empty().set { deepsomatic_idx_ch }
 
 } else if (params.input_type == 'vcf') {
     include { process_vcfs } from './module/process-vcfs' addParams(
@@ -245,17 +247,21 @@ workflow {
                 normal_input_chs.normal_bam,
                 normal_input_chs.normal_index
             )
+            deepsomatic.out.gzvcf.set{ deepsomatic_gzvcf_ch }
+            deepsomatic.out.idx.set{ deepsomatic_idx_ch }
         }
 
-        tool_gzvcfs = (somaticsniper_gzvcf_ch
+        tool_gzvcfs = somaticsniper_gzvcf_ch
             .mix(strelka2_gzvcf_ch)
             .mix(mutect2_gzvcf_ch)
-            .mix(muse_gzvcf_ch))
+            .mix(muse_gzvcf_ch)
+            .mix(deepsomatic_gzvcf_ch)
             .collect()
-        tool_indices = (somaticsniper_idx_ch
+        tool_indices = somaticsniper_idx_ch
             .mix(strelka2_idx_ch)
             .mix(mutect2_idx_ch)
-            .mix(muse_idx_ch))
+            .mix(muse_idx_ch)
+            .mix(deepsomatic_idx_ch)
             .collect()
 
     } else if (params.input_type == 'vcf') {
