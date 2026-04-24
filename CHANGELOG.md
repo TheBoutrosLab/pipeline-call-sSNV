@@ -365,7 +365,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- The is the first beta release of the call-sSNV pipeline. It implements only 1 SNV caller, somatic sniper. Input and output validation and dynamic resource allocation is implemented.
+- This is the first beta release of the call-sSNV pipeline. It implements only 1 SNV caller, somatic sniper. Input and output validation and dynamic resource allocation is implemented.
 
 [0.0.1-beta]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/releases/tag/v0.0.1-beta
 [1.0.0]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v0.0.1-beta...v1.0.0
