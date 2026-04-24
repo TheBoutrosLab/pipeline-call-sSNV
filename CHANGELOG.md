@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Parameterize container mounting flags
-- Update BCFtools `v1.21` to `v1.23.1`
+- Update BCFtools `v1.22` to `v1.23.1`
 - Update GATK `v4.6.1.0` to `v4.6.2.0`
 - Update DeepSomatic `v1.9.0` to `v1.10.0`
 
