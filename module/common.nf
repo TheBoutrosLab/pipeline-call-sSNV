@@ -5,7 +5,6 @@ log.info """\
 Docker Images:
 - docker_image_BCFtools: ${params.docker_image_BCFtools}
 - docker_image_validate_params: ${params.docker_image_validate_params}
-- docker_image_ubuntu: ${params.docker_image_ubuntu}
 """
 
 process filter_VCF_BCFtools {
@@ -129,7 +128,7 @@ process rename_samples_BCFtools {
     }
 
 process compress_file_bzip2 {
-    container params.docker_image_ubuntu
+    container params.docker_image_validate_params
     publishDir path: params.compress_publishdir,
         mode: "copy",
         pattern: "*.bz2",
