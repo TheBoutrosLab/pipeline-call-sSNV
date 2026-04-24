@@ -95,7 +95,9 @@ process call_sSNV_DeepSomatic {
     output_filename_base = "${params.output_filename}_unfiltered-${interval_id}"
     vcf_filename = "${output_filename_base}.vcf.gz"
     gvcf_filename = "${output_filename_base}.g.vcf.gz"
-    model_type = (params.exome) ? "WES" : "WGS"
+    model_type_base = (params.exome) ? "WES" : "WGS"
+    sample_mode_extension = (params.sample_mode == 'tumor_only') ? "_TUMOR_ONLY" : ""
+    normal_input_args = (params.sample_mode == 'tumor_only') ? "" : "--reads_normal=${normal_bam} --sample_name_normal=\"${params.normal_id}\""
     """
     set -euo pipefail
 
@@ -103,11 +105,10 @@ process call_sSNV_DeepSomatic {
     mkdir work
 
     /opt/deepvariant/bin/deepsomatic/run_deepsomatic \
-        --model_type=${model_type} \
+        --model_type=${model_type_base}${sample_mode_extension} \
         --ref=${reference_fasta} \
-        --reads_normal=${normal_bam} \
+        ${normal_input_args} \
         --reads_tumor=${tumor_bam} \
-        --sample_name_normal="${params.normal_id}" \
         --sample_name_tumor="${params.tumor_id}" \
         --output_vcf=${vcf_filename} \
         --output_gvcf=${gvcf_filename} \

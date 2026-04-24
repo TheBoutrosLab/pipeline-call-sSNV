@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `DeepSomatic` variant caller
 - Support for `Apptainer` containerization
 - Profiles to select containerization system
+- `DeepSomatic` tumor-only mode
+- VAF stripplot and intersection VennDiagram to include `DeepSomatic` 
 
 ### Changed
 

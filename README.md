@@ -32,7 +32,7 @@ The call-sSNV nextflow pipeline performs somatic SNV calling given a pair of tum
 
 If two or more callers are requested, additional output includes both a VCF and an MAF file with the set of SNVs shared by two or more callers, and a Venn Diagram showing counts of shared and private SNVs.
 
-SomaticSniper, Strelka2, MuSE, and DeepSomatic require there to be **exactly one pair of input tumor/normal** BAM files, but Mutect2 will take tumor-only input (no paired normal), as well as tumor/normal BAM pairs for multiple samples from the same individual.
+SomaticSniper, Strelka2, and MuSE require there to be **exactly one pair of input tumor/normal** BAM files, but Mutect2 and DeepSomatic will take tumor-only input (no paired normal), with Mutect2 also taking tumor/normal BAM pairs for multiple samples from the same individual.
 
 ### Somatic SNV callers:
 * [SomaticSniper](https://github.com/genome/somatic-sniper) is an older tool yielding high specificity single nucleotide somatic variants.
@@ -168,7 +168,10 @@ input:
       contamination_table: /path/to/contamination.table
 ```
 
-* `Mutect2` can take other inputs: tumor-only sample and one patient's multiple samples. For tumor-only samples, remove the normal input in `input.yaml`, e.g. [template_tumor_only.yaml](input/example-test-tumor-only.yaml). For multiple samples, put all the input BAMs in the `input.yaml`, e.g. [template_multi_sample.yaml](input/example-test-multi-sample.yaml). Note, for these non-standard inputs, the configuration file must have 'mutect2' listed as the only algorithm.
+* `Mutect2` and `DeepSomatic` can take other inputs:
+    - `Mutect2`: tumor-only sample and one patient's multiple samples.
+    - `DeepSomatic`: tumor-only sample.
+* For tumor-only samples, remove the normal input in `input.yaml`, e.g. [template_tumor_only.yaml](input/example-test-tumor-only.yaml). For multiple samples, put all the input BAMs in the `input.yaml`, e.g. [template_multi_sample.yaml](input/example-test-multi-sample.yaml). Note, for these non-standard inputs, the configuration file must have 'mutect2' listed as the only algorithm.
 
 
 ### input.config ([see template](config/template.config))
