@@ -100,7 +100,7 @@
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">Overview</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/TheBoutrosLab/pipeline-call-sSNV/blob/1834ec7ed7cccb764f2c0dbe182888c271e78af7/README.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/TheBoutrosLab/pipeline-call-sSNV/blob/a8156706a4d32d15cd410bc4d44d97d91502dba8/README.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -111,7 +111,7 @@
                 <h2 id="overview">Overview</h2>
 <p>The call-sSNV nextflow pipeline performs somatic SNV calling given a pair of tumor/normal BAM files. Five somatic SNV callers are available: SomaticSniper, Strelka2, Mutect2, MuSE, and DeepSomatic. The user may request one or more callers, and each caller produces an independently generated filtered VCF file.</p>
 <p>If two or more callers are requested, additional output includes both a VCF and an MAF file with the set of SNVs shared by two or more callers, and a Venn Diagram showing counts of shared and private SNVs.</p>
-<p>SomaticSniper, Strelka2, MuSE, and DeepSomatic require there to be <strong>exactly one pair of input tumor/normal</strong> BAM files, but Mutect2 will take tumor-only input (no paired normal), as well as tumor/normal BAM pairs for multiple samples from the same individual.</p>
+<p>SomaticSniper, Strelka2, and MuSE require there to be <strong>exactly one pair of input tumor/normal</strong> BAM files, but Mutect2 and DeepSomatic will take tumor-only input (no paired normal), with Mutect2 also taking tumor/normal BAM pairs for multiple samples from the same individual.</p>
 <h3 id="somatic-snv-callers">Somatic SNV callers:</h3>
 <ul>
 <li>
