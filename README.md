@@ -171,7 +171,7 @@ input:
 * `Mutect2` and `DeepSomatic` can take other inputs:
     - `Mutect2`: tumor-only sample and one patient's multiple samples.
     - `DeepSomatic`: tumor-only sample.
-* For tumor-only samples, remove the normal input in `input.yaml`, e.g. [template_tumor_only.yaml](input/example-test-tumor-only.yaml). For multiple samples, put all the input BAMs in the `input.yaml`, e.g. [template_multi_sample.yaml](input/example-test-multi-sample.yaml). Note, for these non-standard inputs, the configuration file must have 'mutect2' listed as the only algorithm.
+* For tumor-only samples, remove the normal input in `input.yaml`, e.g. [template_tumor_only.yaml](input/example-test-tumor-only.yaml). For multiple samples, put all the input BAMs in the `input.yaml`, e.g. [template_multi_sample.yaml](input/example-test-multi-sample.yaml).
 
 
 ### input.config ([see template](config/template.config))
