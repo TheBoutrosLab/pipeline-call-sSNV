@@ -13,6 +13,7 @@ workflow mutect2 {
 
     main:
         run_SplitIntervals_GATK(
+            META,
             params.intersect_regions,
             params.intersect_regions_index,
             params.reference,
@@ -40,6 +41,7 @@ workflow mutect2 {
             .set { contamination_table }
 
         call_sSNV_Mutect2(
+            META,
             run_SplitIntervals_GATK.out.interval_list.flatten(),
             tumor_bam
                 .combine(run_SplitIntervals_GATK.out.interval_list.flatten())
@@ -72,10 +74,11 @@ workflow mutect2 {
         ich_MergeMutectStats = call_sSNV_Mutect2.out.unfiltered_stats.collect()
         ich_LearnReadOrientationModel = call_sSNV_Mutect2.out.f1r2.collect()
 
-        run_MergeVcfs_GATK(ich_MergeVcfs)
-        run_MergeMutectStats_GATK(ich_MergeMutectStats)
-        run_LearnReadOrientationModel_GATK(ich_LearnReadOrientationModel)
+        run_MergeVcfs_GATK(META, ich_MergeVcfs)
+        run_MergeMutectStats_GATK(META, ich_MergeMutectStats)
+        run_LearnReadOrientationModel_GATK(META, ich_LearnReadOrientationModel)
         run_FilterMutectCalls_GATK(
+            META,
             params.reference,
             params.reference_index,
             params.reference_dict,
@@ -85,14 +88,15 @@ workflow mutect2 {
             run_LearnReadOrientationModel_GATK.out.read_orientation_model,
             contamination_table.collect()
             )
-        filter_VCF_BCFtools(run_FilterMutectCalls_GATK.out.filtered
+        filter_VCF_BCFtools(META, run_FilterMutectCalls_GATK.out.filtered
             .map{ it -> ['all', it] }
             )
-        split_VCF_BCFtools(filter_VCF_BCFtools.out.gzvcf
+        split_VCF_BCFtools(META, filter_VCF_BCFtools.out.gzvcf
             .map{ it -> it[1] },
             ['snps', 'mnps', 'indels']
         )
         rename_samples_BCFtools(
+            META,
             // combine with split_VCF_BCFtools output to duplicate the id input for each file.
             id_ch
                 .collect()
@@ -101,18 +105,31 @@ workflow mutect2 {
             ,
             split_VCF_BCFtools.out.gzvcf
             )
-        compress_index_VCF(rename_samples_BCFtools.out.gzvcf)
-        file_for_sha512 = compress_index_VCF.out.index_out
+        compress_index_VCF(
+            META.combine(rename_samples_BCFtools.out.gzvcf)
+                .map{ it -> [
+                    it[0] + [
+                        "output_dir": it[0].workflow_output_dir,
+                        "log_output_dir": "${it[0].log_output_dir}/process-log/${it[0].log_dir_prefix}",
+                        "id": it[1],
+                        "variant_type": it[1]
+                    ],
+                    it[2]
+                ] }
+            )
+        indexed_vcfs = compress_index_VCF.out.index_out
+            .map{ it -> [it[0].variant_type, it[1], it[2]] }
+        file_for_sha512 = indexed_vcfs
             .map{ it -> ["mutect2-${it[0]}-vcf", it[1]] }
-            .mix( compress_index_VCF.out.index_out
+            .mix( indexed_vcfs
             .map{ it -> ["mutect2-${it[0]}-index", it[2]] }
             )
-        generate_sha512sum(file_for_sha512)
+        generate_sha512sum(META, file_for_sha512)
     emit:
-        gzvcf = compress_index_VCF.out.index_out
+        gzvcf = indexed_vcfs
             .filter { it[0] == 'snps' }
             .map{ it -> ["${it[1]}"] }
-        idx = compress_index_VCF.out.index_out
+        idx = indexed_vcfs
             .filter { it[0] == 'snps' }
             .map{ it -> ["${it[2]}"] }
     }
