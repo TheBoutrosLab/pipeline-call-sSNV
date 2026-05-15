@@ -9,13 +9,14 @@ Docker Images:
 
 process filter_VCF_BCFtools {
     container params.docker_image_BCFtools
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
+    publishDir path: "${META.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
         mode: "copy",
         pattern: "*.vcf.gz",
         enabled: params.save_intermediate_files
-    ext log_dir: { "${params.log_dir_prefix}/${task.process.split(':')[-1]}-${var_type}" }
+    ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}-${var_type}" }
 
     input:
+    val META
     tuple val(var_type), path(vcf)
 
     output:
@@ -24,18 +25,19 @@ process filter_VCF_BCFtools {
     script:
     """
     set -euo pipefail
-    bcftools view -f PASS  --output-type z --output ${params.output_filename}_${var_type}-pass.vcf.gz ${vcf}
+    bcftools view -f PASS  --output-type z --output ${META.output_filename}_${var_type}-pass.vcf.gz ${vcf}
     """
     }
 
 process generate_sha512sum {
     container params.docker_image_validate_params
-    publishDir path: "${params.workflow_output_dir}/output",
+    publishDir path: "${META.workflow_output_dir}/output",
         mode: "copy",
         pattern: "${file_for_sha512}.sha512"
-    ext log_dir: { "${params.log_dir_prefix}/${task.process.split(':')[-1]}-${id}" }
+    ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}-${id}" }
 
     input:
+    val META
     tuple val(id), path (file_for_sha512)
 
     output:
@@ -50,12 +52,13 @@ process generate_sha512sum {
 
 process split_VCF_BCFtools {
     container params.docker_image_BCFtools
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
+    publishDir path: "${META.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
         mode: "copy",
         pattern: "*.vcf.gz"
-    ext log_dir: { "${params.log_dir_prefix}/${task.process.split(':')[-1]}_${var_type}" }
+    ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}_${var_type}" }
 
     input:
+    val META
     path vcf
     each var_type
 
@@ -63,14 +66,14 @@ process split_VCF_BCFtools {
     tuple val(var_type), path("*.vcf.gz"), emit: gzvcf
 
     script:
-    if (params.keep_input_prefix) {
+    if (META.getOrDefault('keep_input_prefix', false)) {
         output_filename = vcf.getName()
             .replace("_all-pass.vcf.gz", "")
             .replace("_SNV-pass.vcf.gz", "")
             .replace("_hc.vcf.gz", "")
             .replace(".vcf.gz", "")
     } else {
-        output_filename = "${params.output_filename}"
+        output_filename = "${META.output_filename}"
     }
     """
     set -euo pipefail
@@ -84,12 +87,13 @@ process split_VCF_BCFtools {
 
 process rename_samples_BCFtools {
     container params.docker_image_BCFtools
-    publishDir path: "${params.workflow_output_dir}/output",
+    publishDir path: "${META.workflow_output_dir}/output",
         mode: "copy",
         pattern: "*.vcf.gz"
-    ext log_dir: { "${params.log_dir_prefix}/${task.process.split(':')[-1]}-${var_type}" }
+    ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}-${var_type}" }
 
     input:
+    val META
     val ids
     tuple val(var_type), path(vcf)
 
@@ -103,7 +107,7 @@ process rename_samples_BCFtools {
     header_replacements = ids
         .collect { "sed 's/\t${it['orig_id']}/\t${it['id']}/g'" }
         .join(" | ")
-    if (params.keep_input_prefix) {
+    if (META.getOrDefault('keep_input_prefix', false)) {
         output_filename = vcf.getName()
             .replace("_SNV-pass.vcf.gz", "")
             .replace("_hc.vcf.gz", "")
@@ -112,7 +116,7 @@ process rename_samples_BCFtools {
             .replace("_MNV-split.vcf.gz", "")
             .replace(".vcf.gz", "")
     } else {
-        output_filename = "${params.output_filename}"
+        output_filename = "${META.output_filename}"
     }
     """
     set -euo pipefail
@@ -129,13 +133,14 @@ process rename_samples_BCFtools {
 
 process compress_file_bzip2 {
     container params.docker_image_validate_params
-    publishDir path: params.compress_publishdir,
+    publishDir path: META.compress_publishdir,
         mode: "copy",
         pattern: "*.bz2",
-        enabled: params.compress_enabled
-    ext log_dir: { "${params.log_dir_prefix}/${task.process.split(':')[-1]}-${file_type}" }
+        enabled: META.getOrDefault('compress_enabled', true)
+    ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}-${file_type}" }
 
     input:
+    val META
     tuple val(file_type), path(file_to_compress)
 
     output:
