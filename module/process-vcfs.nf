@@ -1,18 +1,10 @@
 include { generate_standard_filename } from '../external/pipeline-Nextflow-module/modules/common/generate_standardized_filename/main.nf'
-include { split_VCF_BCFtools; rename_samples_BCFtools; generate_sha512sum} from './common' addParams(
-    keep_input_prefix: true,
-    log_dir_prefix: "Intersect-BCFtools-${params.BCFtools_version}"
-    )
-include { compress_index_VCF } from '../external/pipeline-Nextflow-module/modules/common/index_VCF_tabix/main.nf' addParams(
-    options: [
-        output_dir: params.workflow_output_dir,
-        log_output_dir: "${params.log_output_dir}/process-log/Intersect-BCFtools-${params.BCFtools_version}",
-        bgzip_extra_args: params.bgzip_extra_args,
-        tabix_extra_args: params.tabix_extra_args
-        ])
+include { split_VCF_BCFtools; rename_samples_BCFtools; generate_sha512sum } from './common'
+include { compress_index_VCF } from '../external/pipeline-Nextflow-module/modules/common/index_VCF_tabix/main.nf'
 
 workflow process_vcfs {
     take:
+        META
         samplesToProcess_ch
     main:
         split_VCF_BCFtools(samplesToProcess_ch

@@ -1,16 +1,9 @@
 include { call_sSNV_MuSE; run_sump_MuSE } from './muse-processes'
-include { filter_VCF_BCFtools; rename_samples_BCFtools; generate_sha512sum } from './common' addParams(
-    log_dir_prefix: "MuSE-${params.MuSE_version}"
-    )
-include { compress_index_VCF } from '../external/pipeline-Nextflow-module/modules/common/index_VCF_tabix/main.nf' addParams(
-    options: [
-        output_dir: params.workflow_output_dir,
-        log_output_dir: "${params.log_output_dir}/process-log/MuSE-${params.MuSE_version}",
-        bgzip_extra_args: params.bgzip_extra_args,
-        tabix_extra_args: params.tabix_extra_args
-        ])
+include { filter_VCF_BCFtools; rename_samples_BCFtools; generate_sha512sum } from './common'
+include { compress_index_VCF } from '../external/pipeline-Nextflow-module/modules/common/index_VCF_tabix/main.nf'
 workflow muse {
     take:
+    META
     tumor_bam
     tumor_index
     normal_bam

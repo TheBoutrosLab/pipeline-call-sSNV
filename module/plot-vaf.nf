@@ -2,6 +2,7 @@ include { calculate_adjVAF_Python; plot_adjVAF_R } from './plot-vaf-processes'
 
 workflow plot_vaf {
     take:
+    META
     identified_gzvcfs
     all_files
 

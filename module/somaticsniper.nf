@@ -1,30 +1,12 @@
 include { call_sSNV_SomaticSniper; convert_BAM2Pileup_SAMtools; create_IndelCandidate_SAMtools; apply_NormalIndelFilter_SomaticSniper; apply_TumorIndelFilter_SomaticSniper; create_ReadCountPosition_SomaticSniper; generate_ReadCount_bam_readcount; filter_FalsePositive_SomaticSniper; call_HighConfidenceSNV_SomaticSniper } from './somaticsniper-processes'
-include { rename_samples_BCFtools; generate_sha512sum } from './common' addParams(
-    log_dir_prefix: "SomaticSniper-${params.somaticsniper_version}"
-    )
-include { compress_index_VCF as compress_index_VCF_hc } from '../external/pipeline-Nextflow-module/modules/common/index_VCF_tabix/main.nf'  addParams(
-    options: [
-        output_dir: params.workflow_output_dir,
-        log_output_dir: "${params.log_output_dir}/process-log/SomaticSniper-${params.somaticsniper_version}",
-        bgzip_extra_args: params.bgzip_extra_args,
-        tabix_extra_args: params.tabix_extra_args,
-        is_output_file: false
-        ])
-include { compress_index_VCF as compress_index_VCF_fix } from '../external/pipeline-Nextflow-module/modules/common/index_VCF_tabix/main.nf'  addParams(
-    options: [
-        output_dir: params.workflow_output_dir,
-        log_output_dir: "${params.log_output_dir}/process-log/SomaticSniper-${params.somaticsniper_version}",
-        bgzip_extra_args: params.bgzip_extra_args,
-        tabix_extra_args: params.tabix_extra_args
-        ])
-include { compress_file_bzip2} from './common'   addParams(
-    compress_publishdir : "${params.workflow_output_dir}/intermediate/generate_ReadCount_bam_readcount",
-    compress_enabled : params.save_intermediate_files,
-    log_dir_prefix: "SomaticSniper-${params.somaticsniper_version}"
-    )
+include { rename_samples_BCFtools; generate_sha512sum } from './common'
+include { compress_index_VCF as compress_index_VCF_hc } from '../external/pipeline-Nextflow-module/modules/common/index_VCF_tabix/main.nf'
+include { compress_index_VCF as compress_index_VCF_fix } from '../external/pipeline-Nextflow-module/modules/common/index_VCF_tabix/main.nf'
+include { compress_file_bzip2 } from './common'
 
 workflow somaticsniper {
     take:
+    META
     tumor_bam
     tumor_index
     normal_bam
