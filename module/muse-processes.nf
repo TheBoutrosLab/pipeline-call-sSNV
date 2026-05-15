@@ -13,13 +13,14 @@ MuSE Options:
 
 process call_sSNV_MuSE {
     container params.docker_image_MuSE
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
+    publishDir path: "${META.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
         mode: "copy",
         pattern: "*.txt",
         enabled: params.save_intermediate_files
-        ext log_dir: { "MuSE-${params.MuSE_version}/${task.process.split(':')[-1]}" }
+        ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}" }
 
     input:
+    val META
     path tumor
     path tumor_index
     path normal
@@ -34,7 +35,7 @@ process call_sSNV_MuSE {
     """
     MuSE call \
         -f $reference \
-        -O ${params.output_filename} \
+        -O ${META.output_filename} \
         -n ${task.cpus} \
         $tumor \
         $normal
@@ -43,13 +44,14 @@ process call_sSNV_MuSE {
 
 process run_sump_MuSE {
     container params.docker_image_MuSE
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
+    publishDir path: "${META.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
         mode: "copy",
         pattern: "*.vcf",
         enabled: params.save_intermediate_files
-        ext log_dir: { "MuSE-${params.MuSE_version}/${task.process.split(':')[-1]}" }
+        ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}" }
 
     input:
+    val META
     path MuSE_txt
     path dbSNP
     path dbSNP_index
@@ -64,7 +66,7 @@ process run_sump_MuSE {
     MuSE sump \
         -I $MuSE_txt \
         $arg_seq_type \
-        -O ${params.output_filename}-raw.vcf \
+        -O ${META.output_filename}-raw.vcf \
         -n ${task.cpus} \
         -D $dbSNP
     """
