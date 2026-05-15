@@ -27,28 +27,43 @@ workflow intersect {
         tool_indices_ch = tool_indices
             .flatten()
         reorder_samples_BCFtools(
+            META,
             tool_gzvcfs_ch,
             tool_indices_ch,
             params.tumor_id,
             params.normal_id
             )
-        compress_index_VCF_reordered(reorder_samples_BCFtools.out.gzvcf
-            .map{ it -> ["${getToolName(it)}-SNV", it]}
+        compress_index_VCF_reordered(
+            META.combine(reorder_samples_BCFtools.out.gzvcf.map{ it -> ["${getToolName(it)}-SNV", it] })
+                .map{ it -> [
+                    it[0] + [
+                        "output_dir": it[0].workflow_output_dir,
+                        "log_output_dir": "${it[0].log_output_dir}/process-log/${it[0].log_dir_prefix}",
+                        "id": it[1],
+                        "variant_type": it[1],
+                        "is_output_file": false
+                    ],
+                    it[2]
+                ] }
             )
-        gzvcfs = compress_index_VCF_reordered.out.index_out
+        reordered_indexed_vcfs = compress_index_VCF_reordered.out.index_out
+            .map{ it -> [it[0].variant_type, it[1], it[2]] }
+        gzvcfs = reordered_indexed_vcfs
             .map{ it -> it[1] }
             .collect()
             .map { sortVcfs(it)  }
-        indices = compress_index_VCF_reordered.out.index_out
+        indices = reordered_indexed_vcfs
             .map{ it -> it[2] }
             .collect()
         intersect_VCFs_BCFtools(
+            META,
             gzvcfs,
             indices,
             params.intersect_regions,
             params.intersect_regions_index
             )
         plot_VennDiagram_R(
+            META,
             script_dir_ch,
             intersect_VCFs_BCFtools.out.isec,
             )
@@ -58,19 +73,32 @@ workflow intersect {
             .collect()
             .map { sortVcfs(it) }
         concat_VCFs_BCFtools(
+            META,
             intersect_vcfs,
             intersect_VCFs_BCFtools.out.idx
             )
         convert_VCF_vcf2maf(
+            META,
             concat_VCFs_BCFtools.out.vcf,
             params.reference,
             params.normal_id,
             params.tumor_id
             )
-        compress_index_VCF_concat(concat_VCFs_BCFtools.out.vcf
-            .map{ it -> ['SNV', it]}
+        compress_index_VCF_concat(
+            META.combine(concat_VCFs_BCFtools.out.vcf.map{ it -> ['SNV', it] })
+                .map{ it -> [
+                    it[0] + [
+                        "output_dir": it[0].workflow_output_dir,
+                        "log_output_dir": "${it[0].log_output_dir}/process-log/${it[0].log_dir_prefix}",
+                        "id": it[1],
+                        "variant_type": it[1]
+                    ],
+                    it[2]
+                ] }
             )
-        compress_file_bzip2(convert_VCF_vcf2maf.out.maf
+        concat_indexed_vcfs = compress_index_VCF_concat.out.index_out
+            .map{ it -> [it[0].variant_type, it[1], it[2]] }
+        compress_file_bzip2(META, convert_VCF_vcf2maf.out.maf
             .map{ it -> ['MAF', it]}
             )
         file_for_sha512 = intersect_VCFs_BCFtools.out.gzvcf
@@ -80,14 +108,14 @@ workflow intersect {
                 .flatten()
                 .map{ it -> ["${getToolName(it)}-idx", it]}
                 )
-            .mix(compress_index_VCF_concat.out.index_out
+            .mix(concat_indexed_vcfs
                 .map{ it -> ["concat-${it[0]}-vcf", it[1]] }
                 )
-            .mix(compress_index_VCF_concat.out.index_out
+            .mix(concat_indexed_vcfs
                 .map{ it -> ["concat-${it[0]}-index", it[2]] }
                 )
             .mix(compress_file_bzip2.out.compressed_file
                 .map{ it -> ["concat-${it[0]}", it[1]]}
                 )
-        generate_sha512sum(file_for_sha512)
+        generate_sha512sum(META, file_for_sha512)
     }
