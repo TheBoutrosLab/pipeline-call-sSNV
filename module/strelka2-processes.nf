@@ -12,13 +12,14 @@ Strelka2 Options:
 
 process call_sIndel_Manta {
     container params.docker_image_manta
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
+    publishDir path: "${META.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
         mode: "copy",
         pattern: "MantaWorkflow",
         enabled: params.save_intermediate_files
-    ext log_dir: { "Strelka2-${params.strelka2_version}/${task.process.split(':')[-1]}" }
+    ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}" }
 
     input:
+    val META
     path tumor
     path tumor_index
     path normal
@@ -51,13 +52,14 @@ process call_sIndel_Manta {
 
 process call_sSNV_Strelka2 {
     container params.docker_image_strelka2
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
+    publishDir path: "${META.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
         mode: "copy",
         pattern: "StrelkaSomaticWorkflow",
         enabled: params.save_intermediate_files
-    ext log_dir: { "Strelka2-${params.strelka2_version}/${task.process.split(':')[-1]}" }
+    ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}" }
 
     input:
+    val META
     path tumor
     path tumor_index
     path normal
