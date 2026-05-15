@@ -38,7 +38,7 @@ process generate_sha512sum {
 
     input:
     val META
-    tuple val(id), path (file_for_sha512)
+    tuple val(id), path(file_for_sha512)
 
     output:
     tuple val(id), path("${file_for_sha512}.sha512"), emit: sha512sum
