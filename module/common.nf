@@ -133,10 +133,11 @@ process rename_samples_BCFtools {
 
 process compress_file_bzip2 {
     container params.docker_image_validate_params
-    publishDir path: META.compress_publishdir,
+    publishDir path: "${META.compress_publishdir}",
         mode: "copy",
+        pattern: "${ META.getOrDefault('compress_enabled', true) ? '*.bz2' : 'NOMATCH'}",
         pattern: "*.bz2",
-        enabled: META.getOrDefault('compress_enabled', true)
+        enabled: true
     ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}-${file_type}" }
 
     input:
