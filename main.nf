@@ -1,6 +1,10 @@
 #!/usr/bin/env nextflow
 
 nextflow.enable.dsl=2
+
+params.reference_index = "${params.reference}.fai"
+params.reference_dict = "${file(params.reference).parent / file(params.reference).baseName}.dict"
+
 include { generate_standard_filename } from './external/pipeline-Nextflow-module/modules/common/generate_standardized_filename/main.nf'
 include { run_validate_PipeVal } from './external/pipeline-Nextflow-module/modules/PipeVal/validate/main.nf'
 include { indexFile } from './external/pipeline-Nextflow-module/modules/common/indexFile/main.nf'
@@ -51,9 +55,6 @@ log.info """\
         normal_in: ${params.samples_to_process.findAll{ it.sample_type == 'normal' }['orig_id']}
         normal_out: ${params.samples_to_process.findAll{ it.sample_type == 'normal' }['id']}
 """
-
-params.reference_index = "${params.reference}.fai"
-params.reference_dict = "${file(params.reference).parent / file(params.reference).baseName}.dict"
 
 if (params.input_type == 'bam') {
     if (params.max_cpus < 8 || params.max_memory < 16) {
