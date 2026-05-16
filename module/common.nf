@@ -136,7 +136,6 @@ process compress_file_bzip2 {
     publishDir path: "${META.compress_publishdir}",
         mode: "copy",
         pattern: "${ META.getOrDefault('compress_enabled', true) ? '*.bz2' : 'NOMATCH'}",
-        pattern: "*.bz2",
         enabled: true
     ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}-${file_type}" }
 
