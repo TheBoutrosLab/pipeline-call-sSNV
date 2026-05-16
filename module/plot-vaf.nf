@@ -8,11 +8,13 @@ workflow plot_vaf {
 
     main:
     calculate_adjVAF_Python(
+        META,
         identified_gzvcfs,
         all_files
         )
 
     plot_adjVAF_R(
+        META,
         calculate_adjVAF_Python.out.adjusted_vafs
         )
 }
