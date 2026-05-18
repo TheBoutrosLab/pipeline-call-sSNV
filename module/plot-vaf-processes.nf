@@ -12,13 +12,14 @@ process calculate_adjVAF_Python {
     container params.docker_image_src_util
     containerOptions "${params.container_mount_flag} ${projectDir}:${projectDir}"
 
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
+    publishDir path: "${META.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
         mode: "copy",
         pattern: "adjusted_vafs.tsv",
         enabled: params.save_intermediate_files
-    ext log_dir: { "Intersect-BCFtools-${params.BCFtools_version}/${task.process.split(':')[-1]}" }
+    ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}" }
 
     input:
+    val META
     val input_data
     path input_files
 
@@ -40,13 +41,14 @@ process plot_adjVAF_R {
     container params.docker_image_bpg
     containerOptions "${params.container_mount_flag} ${projectDir}:${projectDir}"
 
-    publishDir path: "${params.workflow_output_dir}/output",
+    publishDir path: "${META.workflow_output_dir}/output",
         mode: "copy",
         pattern: "stripplot.png",
-        saveAs: { "${params.output_filename}_adjVAF.png" }
-    ext log_dir: { "Intersect-BCFtools-${params.BCFtools_version}/${task.process.split(':')[-1]}" }
+        saveAs: { "${META.output_filename}_adjVAF.png" }
+    ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}" }
 
     input:
+    val META
     path adjvaf_table
 
     output:
