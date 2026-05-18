@@ -48,7 +48,7 @@ process run_sump_MuSE {
         mode: "copy",
         pattern: "*.vcf",
         enabled: params.save_intermediate_files
-        ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}" }
+    ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}" }
 
     input:
     val META
