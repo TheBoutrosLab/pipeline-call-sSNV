@@ -12,13 +12,14 @@ Intersect Options:
 """
 process reorder_samples_BCFtools {
     container params.docker_image_BCFtools
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
+    publishDir path: "${META.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
         mode: "copy",
         pattern: "*.vcf.gz",
         enabled: params.save_intermediate_files
-    ext log_dir: { "Intersect-BCFtools-${params.BCFtools_version}/${task.process.split(':')[-1]}-${algorithm}" }
+    ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}-${algorithm}" }
 
     input:
+    val META
     tuple val(algorithm), path(gzvcf)
     path indices
     val tumor_id
@@ -39,20 +40,21 @@ process reorder_samples_BCFtools {
 
 process intersect_VCFs_BCFtools {
     container params.docker_image_BCFtools
-    publishDir path: "${params.workflow_output_dir}/output",
+    publishDir path: "${META.workflow_output_dir}/output",
         mode: "copy",
         pattern: "*.vcf.gz*"
-    publishDir path: "${params.workflow_output_dir}/output",
+    publishDir path: "${META.workflow_output_dir}/output",
         mode: "copy",
         pattern: "isec-2-or-more/*.txt",
-        saveAs: { "${file(it).getParent().getName()}/${params.output_filename}_${file(it).getName()}" }
-    publishDir path: "${params.workflow_output_dir}/output",
+        saveAs: { "${file(it).getParent().getName()}/${META.output_filename}_${file(it).getName()}" }
+    publishDir path: "${META.workflow_output_dir}/output",
         mode: "copy",
         pattern: "isec-1-or-more/*.txt",
-        saveAs: { "${file(it).getParent().getName()}/${params.output_filename}_${file(it).getName()}" }
-    ext log_dir: { "Intersect-BCFtools-${params.BCFtools_version}/${task.process.split(':')[-1]}" }
+        saveAs: { "${file(it).getParent().getName()}/${META.output_filename}_${file(it).getName()}" }
+    ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}" }
 
     input:
+    val META
     path gzvcf
     path indices
     path intersect_regions
@@ -93,12 +95,13 @@ process intersect_VCFs_BCFtools {
 
 process plot_VennDiagram_R {
     container params.docker_image_r_VennDiagram
-    publishDir path: "${params.workflow_output_dir}/output",
+    publishDir path: "${META.workflow_output_dir}/output",
         mode: "copy",
         pattern: "*.tiff"
-    ext log_dir: { "Intersect-BCFtools-${params.BCFtools_version}/${task.process.split(':')[-1]}" }
+    ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}" }
 
     input:
+    val META
     path script_dir
     path isec
 
@@ -108,19 +111,20 @@ process plot_VennDiagram_R {
     script:
     """
     set -euo pipefail
-    Rscript ${script_dir}/plot-venn.R --isec_readme README.txt --isec_sites sites.txt --outfile ${params.output_filename}_Venn-diagram.tiff
+    Rscript ${script_dir}/plot-venn.R --isec_readme README.txt --isec_sites sites.txt --outfile ${META.output_filename}_Venn-diagram.tiff
     """
     }
 
 process concat_VCFs_BCFtools {
     container params.docker_image_BCFtools
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
+    publishDir path: "${META.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
         mode: "copy",
         pattern: "*concat.vcf",
         enabled: params.save_intermediate_files
-    ext log_dir: { "Intersect-BCFtools-${params.BCFtools_version}/${task.process.split(':')[-1]}" }
+    ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}" }
 
     input:
+    val META
     path vcfs
     path indices
 
@@ -136,7 +140,7 @@ process concat_VCFs_BCFtools {
     # output `INFO` `FORMAT` `NORMAL` and `TUMOR` fields are from the first listed VCF that has the variant
     bcftools concat \
         --output-type v \
-        --output ${params.output_filename}_SNV-concat.vcf \
+        --output ${META.output_filename}_SNV-concat.vcf \
         --allow-overlaps \
         --rm-dups all \
         ${vcf_list}
@@ -145,13 +149,14 @@ process concat_VCFs_BCFtools {
 
 process convert_VCF_vcf2maf {
     container params.docker_image_vcf2maf
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
+    publishDir path: "${META.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
         mode: "copy",
         pattern: "*.maf",
         enabled: params.save_intermediate_files
-    ext log_dir: { "Intersect-BCFtools-${params.BCFtools_version}/${task.process.split(':')[-1]}" }
+    ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}" }
 
     input:
+    val META
     path vcf
     path reference
     val normal_id
@@ -170,7 +175,7 @@ process convert_VCF_vcf2maf {
         --input-vcf ${vcf} \
         ${normal_argument} \
         --tumor-id ${tumor_id} \
-        --output-maf ${params.output_filename}_SNV-concat.maf \
+        --output-maf ${META.output_filename}_SNV-concat.maf \
         --ref-fasta ${reference} \
         ${params.vcf2maf_extra_args}
     """

@@ -21,13 +21,14 @@ Mutect2 Options:
 process run_SplitIntervals_GATK {
     container params.docker_image_GATK
 
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
+    publishDir path: "${META.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
         mode: "copy",
         pattern: "interval-files/*-scattered.interval_list",
         enabled: params.save_intermediate_files
-    ext log_dir: { "Mutect2-${params.GATK_version}/${task.process.split(':')[-1]}" }
+    ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}" }
 
     input:
+    val META
     path intersect_regions
     path intersect_regions_index
     path reference
@@ -54,13 +55,14 @@ process run_SplitIntervals_GATK {
 process call_sSNV_Mutect2 {
     container params.docker_image_GATK
 
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
+    publishDir path: "${META.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
         mode: "copy",
-        pattern: "${params.output_filename}_unfiltered*",
+        pattern: "${META.output_filename}_unfiltered*",
         enabled: params.save_intermediate_files
-    ext log_dir: { "Mutect2-${params.GATK_version}/${task.process.split(':')[-1]}-${interval_id}" }
+    ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}-${interval_id}" }
 
     input:
+    val META
     path interval
     path tumor
     path tumor_index
@@ -94,8 +96,8 @@ process call_sSNV_Mutect2 {
         -R $reference \
         $bam \
         -L $interval \
-        --f1r2-tar-gz ${params.output_filename}_unfiltered-${interval.baseName}-f1r2.tar.gz \
-        -O ${params.output_filename}_unfiltered-${interval.baseName}.vcf.gz \
+        --f1r2-tar-gz ${META.output_filename}_unfiltered-${interval.baseName}-f1r2.tar.gz \
+        -O ${META.output_filename}_unfiltered-${interval.baseName}.vcf.gz \
         --tmp-dir \$PWD \
         $germline \
         $panel_of_normals_cmd \
@@ -105,13 +107,14 @@ process call_sSNV_Mutect2 {
 
 process run_MergeVcfs_GATK {
     container params.docker_image_GATK
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
+    publishDir path: "${META.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
         mode: "copy",
         pattern: "*_unfiltered.vcf.gz*",
         enabled: params.save_intermediate_files
-    ext log_dir: { "Mutect2-${params.GATK_version}/${task.process.split(':')[-1]}" }
+    ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}" }
 
     input:
+    val META
     path unfiltered_vcf
 
     output:
@@ -122,19 +125,20 @@ process run_MergeVcfs_GATK {
     unfiltered_vcfs = unfiltered_vcf.collect { "-I '$it'" }.join(' ')
     """
     set -euo pipefail
-    gatk MergeVcfs $unfiltered_vcfs -O ${params.output_filename}_unfiltered.vcf.gz
+    gatk MergeVcfs $unfiltered_vcfs -O ${META.output_filename}_unfiltered.vcf.gz
     """
     }
 
 process run_MergeMutectStats_GATK {
     container params.docker_image_GATK
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
+    publishDir path: "${META.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
         mode: "copy",
         pattern: "*_unfiltered.vcf.gz.stats",
         enabled: params.save_intermediate_files
-    ext log_dir: { "Mutect2-${params.GATK_version}/${task.process.split(':')[-1]}" }
+    ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}" }
 
     input:
+    val META
     path unfiltered_stat
 
     output:
@@ -144,19 +148,20 @@ process run_MergeMutectStats_GATK {
     unfiltered_stats = unfiltered_stat.collect { "-stats '$it'" }.join(' ')
     """
     set -euo pipefail
-    gatk MergeMutectStats $unfiltered_stats -O ${params.output_filename}_unfiltered.vcf.gz.stats
+    gatk MergeMutectStats $unfiltered_stats -O ${META.output_filename}_unfiltered.vcf.gz.stats
     """
     }
 
 process run_LearnReadOrientationModel_GATK {
     container params.docker_image_GATK
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
+    publishDir path: "${META.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
         mode: "copy",
         pattern: "read-orientation-model.tar.gz",
         enabled: params.save_intermediate_files
-    ext log_dir: { "Mutect2-${params.GATK_version}/${task.process.split(':')[-1]}" }
+    ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}" }
 
     input:
+    val META
     path f1r2
 
     output:
@@ -175,16 +180,17 @@ process run_LearnReadOrientationModel_GATK {
 
 process run_FilterMutectCalls_GATK {
     container params.docker_image_GATK
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
+    publishDir path: "${META.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
         mode: "copy",
         pattern: "*_filtered.vcf.gz",
         enabled: params.save_intermediate_files
-    publishDir path: "${params.workflow_output_dir}/QC/${task.process.split(':')[-1]}",
+    publishDir path: "${META.workflow_output_dir}/QC/${task.process.split(':')[-1]}",
         mode: "copy",
         pattern: "*.tsv"
-    ext log_dir: { "Mutect2-${params.GATK_version}/${task.process.split(':')[-1]}" }
+    ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}" }
 
     input:
+    val META
     path reference
     path reference_index
     path reference_dict
@@ -206,8 +212,8 @@ process run_FilterMutectCalls_GATK {
         -R $reference \
         -V $unfiltered \
         --ob-priors $read_orientation_model \
-        -O ${params.output_filename}_filtered.vcf.gz \
-        --filtering-stats ${params.output_filename}_filteringStats.tsv \
+        -O ${META.output_filename}_filtered.vcf.gz \
+        --filtering-stats ${META.output_filename}_filteringStats.tsv \
         $contamination \
         ${params.filter_mutect_calls_extra_args}
     """

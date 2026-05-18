@@ -13,22 +13,23 @@ Docker Images:
         intervals: path to IntervalList format intervals
         interval_id: interval ID
     params:
-        params.workflow_output_dir: string(path)
+        META.workflow_output_dir: string(path)
         params.save_intermediate_files: bool.
         params.docker_image_GATK: string
 */
 process convert_IntervalListToBed_GATK {
     container params.docker_image_GATK
 
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
+    publishDir path: "${META.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
         mode: "copy",
         pattern: "*-contig.bed",
         enabled: params.save_intermediate_files
 
-    ext log_dir: { "DeepSomatic-${params.deepsomatic_version}/${task.process.split(':')[-1]}/" },
+    ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}/" },
         log_dir_suffix: { "${interval_id}" }
 
     input:
+    val META
     tuple val(interval_id), path(intervals)
 
     output:
@@ -69,15 +70,16 @@ process call_sSNV_DeepSomatic {
 
     tag "${interval_id}"
 
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
+    publishDir path: "${META.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
                mode: "copy",
                pattern: "*.vcf.gz*",
                enabled: params.save_intermediate_files
 
-    ext log_dir: { "DeepSomatic-${params.deepsomatic_version}/${task.process.split(':')[-1]}/" },
+    ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}/" },
         log_dir_suffix: { "${interval_id}" }
 
     input:
+    val META
     tuple val(interval_id), path(intervals)
     path(tumor_bam)
     path(tumor_bam_index)
@@ -92,7 +94,7 @@ process call_sSNV_DeepSomatic {
     tuple path(gvcf_filename), path("${gvcf_filename}.tbi"), env(GVCF_CALLS), emit: gvcf
 
     script:
-    output_filename_base = "${params.output_filename}_unfiltered-${interval_id}"
+    output_filename_base = "${META.output_filename}_unfiltered-${interval_id}"
     vcf_filename = "${output_filename_base}.vcf.gz"
     gvcf_filename = "${output_filename_base}.g.vcf.gz"
     model_type_base = (params.exome) ? "WES" : "WGS"
