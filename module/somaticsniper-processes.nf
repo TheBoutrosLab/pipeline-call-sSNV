@@ -234,7 +234,6 @@ process filter_FalsePositive_SomaticSniper {
     output:
     path "*.SNPfilter.fp_pass", emit: fp_pass
     path "*.SNPfilter.fp_fail", emit: fp_fail
-    path ".command.*"
 
     """
     set -euo pipefail
@@ -260,7 +259,6 @@ process call_HighConfidenceSNV_SomaticSniper {
     output:
     path "*_hc.vcf", emit: hc_vcf
     path "*_lc.vcf"
-    path ".command.*"
 
     """
     set -euo pipefail
