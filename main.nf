@@ -133,7 +133,8 @@ workflow {
 
     pipeval_meta = meta_base.map{ base_m ->
         base_m + [
-            "docker_image": params.docker_image_validate_params
+            "docker_image": params.docker_image_validate_params,
+            "log_output_dir": "${base_m.log_output_dir}/process-log"
         ]
     }
 
