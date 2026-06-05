@@ -101,6 +101,7 @@ process call_sSNV_Mutect2 {
         -O ${META.output_filename}_unfiltered-${interval.baseName}.vcf.gz \
         --tmp-dir \$PWD \
         $germline \
+        $mnp_distance_cmd \
         $panel_of_normals_cmd \
         ${params.mutect2_extra_args}
     """
