@@ -87,6 +87,7 @@ process call_sSNV_Mutect2 {
     normal_names = normal_name.collect { "-normal ${it}" }.join(' ')
     bam = normal_names == '-normal NO_ID' ? "$tumors" : "$tumors $normals $normal_names"
     germline = params.germline ? "--germline-resource $germline_resource_gnomad_vcf" : ""
+    mnp_distance_cmd = params.mutect2_pon_mode ? "-max-mnp-distance 0" : ""
     panel_of_normals_cmd = params.panel_of_normals_vcf ? "--panel-of-normals ${params.panel_of_normals_vcf}" : ""
     interval_id = interval.baseName.split('-')[0]
     """
