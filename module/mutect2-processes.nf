@@ -112,7 +112,11 @@ process run_MergeVcfs_GATK {
     publishDir path: "${META.workflow_output_dir}/intermediate/${task.process.split(':')[-1]}",
         mode: "copy",
         pattern: "*_unfiltered.vcf.gz*",
-        enabled: params.save_intermediate_files
+        enabled: params.save_intermediate_files && !params.mutect2_pon_mode
+    publishDir path: "${META.workflow_output_dir}/output",
+        mode: "copy",
+        pattern: "*_unfiltered.vcf.gz*",
+        enabled: params.mutect2_pon_mode
     ext log_dir: { "${META.log_dir_prefix}/${task.process.split(':')[-1]}" }
 
     input:
