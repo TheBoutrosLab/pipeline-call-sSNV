@@ -3,19 +3,20 @@ log.info """\
           M U T E C T 2
 ====================================
 Docker Images:
-- docker_image_GATK:           ${params.docker_image_GATK}
-- docker_image_BCFtools        ${params.docker_image_BCFtools}
+- docker_image_GATK:                ${params.docker_image_GATK}
+- docker_image_BCFtools             ${params.docker_image_BCFtools}
 Mutect2 Options:
-- split_intervals_extra_args:     ${params.split_intervals_extra_args}
-- mutect2_extra_args:             ${params.mutect2_extra_args}
-- filter_mutect_calls_extra_args: ${params.filter_mutect_calls_extra_args}
-- gatk_command_mem_diff:          ${params.gatk_command_mem_diff}
-- scatter_count:                  ${params.scatter_count}
-- intervals:                      ${params.intersect_regions}
-- sample mode:                    ${params.sample_mode}
-- germline resource:              ${params.germline_resource_gnomad_vcf}
-- contamination_table:            ${params.input.tumor.contamination_table}
-- panel of normals:               ${params.panel_of_normals_vcf}
+- split_intervals_extra_args:       ${params.split_intervals_extra_args}
+- mutect2_extra_args:               ${params.mutect2_extra_args}
+- filter_mutect_calls_extra_args:   ${params.filter_mutect_calls_extra_args}
+- gatk_command_mem_diff:            ${params.gatk_command_mem_diff}
+- scatter_count:                    ${params.scatter_count}
+- intervals:                        ${params.intersect_regions}
+- sample mode:                      ${params.sample_mode}
+- germline resource:                ${params.germline_resource_gnomad_vcf}
+- contamination_table:              ${params.input.tumor.contamination_table}
+- panel of normals:                 ${params.panel_of_normals_vcf}
+- panel of normals generation mode: ${params.mutect2_pon_mode}
 """
 
 process run_SplitIntervals_GATK {
