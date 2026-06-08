@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Checksum generation for unfiltered PON VCfs
+- Checksum generation for unfiltered PON VCFs
 
 ## [9.2.0] - 2026-06-05
 
