@@ -124,6 +124,13 @@ workflow mutect2 {
             .mix( indexed_vcfs
             .map{ it -> ["mutect2-${it[0]}-index", it[2]] }
             )
+
+        if (params.mutect2_pon_mode) {
+            file_for_sha512 = run_MergeVcfs_GATK.out.unfiltered.map{ it -> ["mutect2-unfiltered-vcf", it] }
+                .mix( run_MergeVcfs_GATK.out.unfiltered_index.map{ it -> ["mutect2-unfiltered-index", it] } )
+                .mix(file_for_sha512)
+        }
+
         generate_sha512sum(META, file_for_sha512)
     emit:
         gzvcf = indexed_vcfs
