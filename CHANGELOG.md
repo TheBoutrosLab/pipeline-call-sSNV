@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [9.3.0] - 2026-06-09
 
 ### Added
 
@@ -421,3 +421,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [9.1.0]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v9.0.0...v9.1.0
 [9.2.0]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v9.1.0...v9.2.0
 [9.2.1]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v9.2.0...v9.2.1
+[9.3.0]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v9.2.1...v9.3.0
