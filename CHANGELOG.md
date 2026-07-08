@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add Singularity containerization profile
 
+### Removed
+
+- Remove local containerization functions
+
 ## [9.3.0] - 2026-06-09
 
 ### Added
