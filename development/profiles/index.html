@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Flow Diagrams - Variant Calling - pipeline-call-sSNV</title>
+    <title>Profiles - pipeline-call-sSNV</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Flow Diagrams - Variant Calling";
-        var mkdocs_page_input_path = "flow-diagrams---variant-calling.md";
+        var mkdocs_page_name = "Profiles";
+        var mkdocs_page_input_path = "profiles.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -48,20 +48,8 @@
                 <li class="toctree-l1"><a class="reference internal" href="../how-to-run/">How To Run</a>
                 </li>
               </ul>
-              <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">Flow Diagrams - Variant Calling</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#somaticsniper">SomaticSniper</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#strelka2">Strelka2</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#mutect2">Mutect2</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#muse">MuSE</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#deepsomatic">DeepSomatic</a>
-    </li>
-    </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../flow-diagrams---variant-calling/">Flow Diagrams - Variant Calling</a>
                 </li>
               </ul>
               <ul>
@@ -84,8 +72,10 @@
                 <li class="toctree-l1"><a class="reference internal" href="../outputs/">Outputs</a>
                 </li>
               </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../profiles/">Profiles</a>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Profiles</a>
+    <ul class="current">
+    </ul>
                 </li>
               </ul>
               <ul>
@@ -110,7 +100,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Flow Diagrams - Variant Calling</li>
+      <li class="breadcrumb-item active">Profiles</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/TheBoutrosLab/pipeline-call-sSNV/blob/d1f7242800071bd5fa35635bd1d1b64307ad0384/README.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -120,18 +110,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="flow-diagrams-variant-calling">Flow Diagrams - Variant Calling</h2>
-<h3 id="somaticsniper"><a href="../flowcharts/#somaticsniper">SomaticSniper</a></h3>
-<h3 id="strelka2"><a href="../flowcharts/#strelka2">Strelka2</a></h3>
-<h3 id="mutect2"><a href="../flowcharts/#mutect2">Mutect2</a></h3>
-<h3 id="muse"><a href="../flowcharts/#muse">MuSE</a></h3>
-<h3 id="deepsomatic"><a href="../flowcharts/#deepsomatic">DeepSomatic</a></h3>
+                <h2 id="profiles">Profiles</h2>
+<p>Profiles can be selected to control which containerization system will be used. Profile selection can be passed to the Nextflow run command using <code>-profile</code>. Available profiles:</p>
+<ul>
+<li><code>docker</code> - Use Docker as the containerization system</li>
+<li><code>apptainer</code> - Use Apptainer as the containerization system</li>
+<li><code>singularity</code> - Use Singularity as the containerization system</li>
+</ul>
+<hr />
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../how-to-run/" class="btn btn-neutral float-left" title="How To Run"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../flow-diagrams---variant-intersection/" class="btn btn-neutral float-right" title="Flow Diagrams - Variant Intersection">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../outputs/" class="btn btn-neutral float-left" title="Outputs"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../references/" class="btn btn-neutral float-right" title="References">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -158,10 +150,10 @@
         </span>
     
     
-      <span><a href="../how-to-run/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../outputs/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../flow-diagrams---variant-intersection/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../references/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
