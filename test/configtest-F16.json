@@ -535,6 +535,9 @@
       "set_retry": "closure()",
       "setup_retry": "closure()"
     },
+    "singularity": {
+      "enabled": false
+    },
     "sm_tag": "0192847",
     "timeline": {
       "enabled": true,
