@@ -22,6 +22,7 @@
   - [Inputs](#inputs)
   - [Outputs](#outputs)
   - [Performance Validation and Resource Requirements](#performance-validation)
+  - [Profiles](#profiles)
   - [References](#references)
   - [Discussions](https://github.com/theboutroslab/pipeline-call-sSNV/discussions)
   - [Contributors](https://github.com/theboutroslab/template-NextflowPipeline/graphs/contributors)
@@ -186,6 +187,10 @@ input:
 | `save_intermediate_files` | yes | boolean | Whether to save intermediate files |
 | `work_dir` | no | string | The path of working directory for Nextflow, storing intermediate files and logs. The path to a temporary working directory for Nextflow, storing intermediate files and logs. It is recommended to use fast, local storage with high I/O performance. |
 | `docker_container_registry` | no | string | Registry containing tool Docker images, optional. Default: `ghcr.io/uclahs-cds` |
+| `apptainer_library` | no | path | Path to readable Apptainer library directory containing any existing Apptainer images. |
+| `apptainer_cache` | no | path | Path to writable Apptainer cache directory where images will be cached. |
+| `singularity_library` | no | path | Path to readable Singularity library directory containing any existing Singularity images. |
+| `singularity_cache` | no | path | Path to writable Singularity cache directory where images will be cached. |
 | `mutect2_pon_mode` | no | boolean | Whether to run Mutect2 with single sample to generate calls for creating a Panel of Normals |
 | `sample_dir_name` | no | string | Explicit name given for main output directory to override sample ID extracted from input BAM header |
 | `base_resource_update` | optional | namespace | Namespace of parameters to update base resource allocations in the pipeline. Usage and structure are detailed in `template.config` and below. |
@@ -354,6 +359,16 @@ Duration: 1d 11h 6m 54s
 |:------------------------|:-------------------|:-------|:-------------|
 |call_sSNV_MuSE        | 3h 44m 15s   | 3181.7% | 60.4 GB   |
 |run_sump_MuSE         | 1d 7h 22m 2s | 100.0%  | 41.6 GB   |
+
+---
+
+## Profiles
+
+Profiles can be selected to control which containerization system will be used. Profile selection can be passed to the Nextflow run command using `-profile`. Available profiles:
+
+- `docker` - Use Docker as the containerization system
+- `apptainer` - Use Apptainer as the containerization system
+- `singularity` - Use Singularity as the containerization system
 
 ---
 
