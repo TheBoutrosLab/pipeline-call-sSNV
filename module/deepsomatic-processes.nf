@@ -106,6 +106,8 @@ process call_sSNV_DeepSomatic {
     mkdir log
     mkdir work
 
+    export TMPDIR="\$PWD/work"
+
     /opt/deepvariant/bin/deepsomatic/run_deepsomatic \
         --model_type=${model_type_base}${sample_mode_extension} \
         --ref=${reference_fasta} \
