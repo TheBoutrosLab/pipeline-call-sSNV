@@ -61,7 +61,8 @@
         "somaticsniper",
         "strelka2",
         "mutect2",
-        "muse"
+        "muse",
+        "deepsomatic"
       ],
       "bam_readcount_version": "1.0.1",
       "base_allocations": {
@@ -131,7 +132,7 @@
       "cache_intermediate_pipeline_steps": false,
       "call_ssnv_r_version": "dev",
       "container_mount_flag": "-v",
-      "dataset_id": "TWGSAMIN",
+      "dataset_id": "dataset_id",
       "dbSNP": "/hot/resource/database/dbSNP-155/original/GRCh38/GCF_000001405.39.gz",
       "deepsomatic_version": "1.10.0",
       "docker_container_registry_theboutroslab": "ghcr.io/theboutroslab",
@@ -164,7 +165,7 @@
         "tumor": [
           {
             "BAM": "/hot/data/unregistered/SMC-HET/tumours/A-mini/bams/n2/output/S2.T-n2.bam",
-            "contamination_table": "/hot/software/pipeline/pipeline-call-sSNV/Nextflow/development/input/data/A-mini/S2.T-n2_getpileupsummaries_calculatecontamination.table"
+            "contamination_table": "/hot/software/pipeline/pipeline-call-sSNV/Nextflow/development/input/data/A-mini/S2.T-n1_getpileupsummaries_calculatecontamination.table"
           }
         ]
       },
@@ -286,7 +287,7 @@
           "path": "/hot/data/unregistered/SMC-HET/normal/bams/A-mini/n2/output/HG002.N-n2.bam",
           "sample_type": "normal"
         },
-        "{orig_id=0192847, id=0192847, path=/hot/data/unregistered/SMC-HET/tumours/A-mini/bams/n2/output/S2.T-n2.bam, contamination_table=/hot/software/pipeline/pipeline-call-sSNV/Nextflow/development/input/data/A-mini/S2.T-n2_getpileupsummaries_calculatecontamination.table, sample_type=tumor}"
+        "{orig_id=0192847, id=0192847, path=/hot/data/unregistered/SMC-HET/tumours/A-mini/bams/n2/output/S2.T-n2.bam, contamination_table=/hot/software/pipeline/pipeline-call-sSNV/Nextflow/development/input/data/A-mini/S2.T-n1_getpileupsummaries_calculatecontamination.table, sample_type=tumor}"
       ],
       "save_intermediate_files": false,
       "scatter_count": "50",
