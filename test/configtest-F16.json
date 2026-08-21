@@ -56,7 +56,7 @@
     },
     "params": {
       "BCFtools_version": "1.23.1",
-      "GATK_version": "4.6.2.0",
+      "GATK_version": "4.7.0.0",
       "MuSE_version": "2.1.2",
       "algorithm": [
         "somaticsniper",
@@ -138,7 +138,7 @@
       "docker_container_registry_theboutroslab": "ghcr.io/theboutroslab",
       "docker_container_registry_uclahscds": "ghcr.io/uclahs-cds",
       "docker_image_BCFtools": "ghcr.io/theboutroslab/bcftools:1.23.1",
-      "docker_image_GATK": "broadinstitute/gatk:4.6.2.0",
+      "docker_image_GATK": "broadinstitute/gatk:4.7.0.0",
       "docker_image_MuSE": "ghcr.io/uclahs-cds/muse:2.1.2",
       "docker_image_bam_readcount": "ghcr.io/yashpatel6/bam_readcount:1.0.1",
       "docker_image_bpg": "ghcr.io/uclahs-cds/boutroslabplottinggeneral:7.1.0",
