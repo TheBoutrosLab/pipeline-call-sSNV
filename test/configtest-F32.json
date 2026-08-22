@@ -1,10 +1,9 @@
 {
   "nextflow_version": "23.10.0",
   "config": [
-    "test/global.config",
-    "test/config/a_mini-all-tools.config"
+    "config/template.config"
   ],
-  "params_file": "test/yaml/a_mini_n2-std-input.yaml",
+  "params_file": "input/example-test.yaml",
   "cpus": 32,
   "memory_gb": 64,
   "nf_params": {
@@ -56,13 +55,14 @@
     },
     "params": {
       "BCFtools_version": "1.23.1",
-      "GATK_version": "4.6.2.0",
+      "GATK_version": "4.7.0.0",
       "MuSE_version": "2.1.2",
       "algorithm": [
         "somaticsniper",
         "strelka2",
         "mutect2",
-        "muse"
+        "muse",
+        "deepsomatic"
       ],
       "bam_readcount_version": "1.0.1",
       "base_allocations": {
@@ -132,13 +132,13 @@
       "cache_intermediate_pipeline_steps": false,
       "call_ssnv_r_version": "dev",
       "container_mount_flag": "-v",
-      "dataset_id": "TWGSAMIN",
+      "dataset_id": "dataset_id",
       "dbSNP": "/hot/resource/database/dbSNP-155/original/GRCh38/GCF_000001405.39.gz",
       "deepsomatic_version": "1.10.0",
       "docker_container_registry_theboutroslab": "ghcr.io/theboutroslab",
       "docker_container_registry_uclahscds": "ghcr.io/uclahs-cds",
       "docker_image_BCFtools": "ghcr.io/theboutroslab/bcftools:1.23.1",
-      "docker_image_GATK": "broadinstitute/gatk:4.6.2.0",
+      "docker_image_GATK": "broadinstitute/gatk:4.7.0.0",
       "docker_image_MuSE": "ghcr.io/uclahs-cds/muse:2.1.2",
       "docker_image_bam_readcount": "ghcr.io/yashpatel6/bam_readcount:1.0.1",
       "docker_image_bpg": "ghcr.io/uclahs-cds/boutroslabplottinggeneral:7.1.0",
@@ -165,7 +165,7 @@
         "tumor": [
           {
             "BAM": "/hot/data/unregistered/SMC-HET/tumours/A-mini/bams/n2/output/S2.T-n2.bam",
-            "contamination_table": "/hot/software/pipeline/pipeline-call-sSNV/Nextflow/development/input/data/A-mini/S2.T-n2_getpileupsummaries_calculatecontamination.table"
+            "contamination_table": "/hot/software/pipeline/pipeline-call-sSNV/Nextflow/development/input/data/A-mini/S2.T-n1_getpileupsummaries_calculatecontamination.table"
           }
         ]
       },
@@ -287,7 +287,7 @@
           "path": "/hot/data/unregistered/SMC-HET/normal/bams/A-mini/n2/output/HG002.N-n2.bam",
           "sample_type": "normal"
         },
-        "{orig_id=0192847, id=0192847, path=/hot/data/unregistered/SMC-HET/tumours/A-mini/bams/n2/output/S2.T-n2.bam, contamination_table=/hot/software/pipeline/pipeline-call-sSNV/Nextflow/development/input/data/A-mini/S2.T-n2_getpileupsummaries_calculatecontamination.table, sample_type=tumor}"
+        "{orig_id=0192847, id=0192847, path=/hot/data/unregistered/SMC-HET/tumours/A-mini/bams/n2/output/S2.T-n2.bam, contamination_table=/hot/software/pipeline/pipeline-call-sSNV/Nextflow/development/input/data/A-mini/S2.T-n1_getpileupsummaries_calculatecontamination.table, sample_type=tumor}"
       ],
       "save_intermediate_files": false,
       "scatter_count": "50",
