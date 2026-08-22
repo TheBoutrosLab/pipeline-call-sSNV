@@ -7,8 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [9.5.0] - 2026-08-21
 
-## [9.4.2] - 2026-08-21
-
 ### Changed
 
 - Update GATK `v4.6.2.0` to `v4.7.0.0`
