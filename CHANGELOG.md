@@ -446,5 +446,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [9.3.0]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v9.2.1...v9.3.0
 [9.4.0]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v9.3.0...v9.4.0
 [9.4.1]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v9.4.0...v9.4.1
-[9.4.2]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v9.4.1...v9.4.2
-[9.5.0]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v9.4.2...v9.5.0
+[9.5.0]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v9.4.1...v9.5.0
