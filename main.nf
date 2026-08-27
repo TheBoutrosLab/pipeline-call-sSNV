@@ -362,4 +362,10 @@ workflow {
         all_files
         )
 
+    
+    workflow.onComplete = {
+
+        WorkflowFinalizer.completeWorkflow(workflow, params);
+
     }
+}
