@@ -94,6 +94,18 @@ workflow deepsomatic {
                     ],
                     it[2]
                 ] }
+                .mix(
+                    META.combine(run_MergeVcfs_GATK.out.unfiltered)
+                        .map{ unfilt -> [
+                            unfilt[0] + [
+                                "output_dir": unfilt[0].workflow_output_dir,
+                                "log_output_dir": "${unfilt[0].log_output_dir}/process-log/${unfilt[0].log_dir_prefix}",
+                                "id": "unfiltered",
+                                "variant_type": "unfiltered"
+                            ],
+                            unfilt[1]
+                        ] }
+                )
         )
 
         indexed_vcfs = compress_index_VCF.out.index_out
