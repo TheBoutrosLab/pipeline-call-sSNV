@@ -71,6 +71,11 @@ save_intermediate_files:
   required: false
   default: false
   help: 'The option to save the intermediate files'
+save_unfiltered_vcfs:
+  type: 'Bool'
+  required: true
+  default: false
+  help: 'The option to save intermediate unfiltered VCFs'
 bgzip_extra_args:
   type: 'String'
   required: false
