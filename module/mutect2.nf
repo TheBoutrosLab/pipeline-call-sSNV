@@ -95,15 +95,24 @@ workflow mutect2 {
             .map{ it -> it[1] },
             ['snps', 'mnps', 'indels']
         )
+
+        input_ch_rename_samples = split_VCF_BCFtools.out.gzvcf
+
+        if (params.save_unfiltered_vcfs) {
+            input_ch_rename_samples = input_ch_rename_samples
+                .mix( run_MergeVcfs_GATK.out.unfiltered.map{ unfilt_merge -> ['unfiltered-merged', unfilt_merge] } )
+                .mix( run_FilterMutectCalls_GATK.out.filtered.map{ filt_merge -> ['MutectFilter', filt_merge] } )
+        }
+
         rename_samples_BCFtools(
             META,
             // combine with split_VCF_BCFtools output to duplicate the id input for each file.
             id_ch
                 .collect()
-                .combine(split_VCF_BCFtools.out.gzvcf)
+                .combine(input_ch_rename_samples)
                 .map { it.take(it.size() -2) } //remove the split_VCF_BCFtools files
             ,
-            split_VCF_BCFtools.out.gzvcf
+            input_ch_rename_samples
             )
         compress_index_VCF(
             META.combine(rename_samples_BCFtools.out.gzvcf)
