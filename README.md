@@ -290,7 +290,7 @@ base_resource_update {
 | Mutect2-{version}_{sample_id}_filteringStats.tsv        | .tsv         | FilterMutectCalls output (mutect2 QC)      |
 | MuSE-{version}_{sample_id}_SNV.vcf.gz        | .vcf.gz         | Filtered SNV VCF (MuSE)   |
 | DeepSomatic-{version}_{sample_id}_SNV-split.vcf.gz        | .vcf.gz         | Filtered SNV VCF (DeepSomatic)   |
-| Mutect2-{version}_{sample_id}_unfiltered-merged.vcf.gz        | .vcf.gz         | Merged VCF of raw DeepSomatic calls      |
+| DeepSomatic-{version}_{sample_id}_unfiltered.vcf.gz        | .vcf.gz         | Merged VCF of raw DeepSomatic calls      |
 | report.html, timeline.html, trace.txt          | .html, .txt | Nextflow logs                 |
 
 | Intersect Outputs                                         | Type         | Description                   |
