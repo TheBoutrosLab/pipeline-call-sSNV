@@ -83,30 +83,33 @@ workflow deepsomatic {
             ['snps', 'mnps', 'indels']
         )
 
-        compress_index_VCF(
-            META.combine(split_VCF_BCFtools.out.gzvcf)
-                .map{ it -> [
-                    it[0] + [
-                        "output_dir": it[0].workflow_output_dir,
-                        "log_output_dir": "${it[0].log_output_dir}/process-log/${it[0].log_dir_prefix}",
-                        "id": it[1],
-                        "variant_type": it[1]
-                    ],
-                    it[2]
-                ] }
-                .mix(
-                    META.combine(run_MergeVcfs_GATK.out.unfiltered)
-                        .map{ unfilt -> [
-                            unfilt[0] + [
-                                "output_dir": unfilt[0].workflow_output_dir,
-                                "log_output_dir": "${unfilt[0].log_output_dir}/process-log/${unfilt[0].log_dir_prefix}",
-                                "id": "unfiltered",
-                                "variant_type": "unfiltered"
-                            ],
-                            unfilt[1]
-                        ] }
-                )
-        )
+        input_ch_compress_index = META.combine(split_VCF_BCFtools.out.gzvcf)
+            .map{ it -> [
+                it[0] + [
+                    "output_dir": it[0].workflow_output_dir,
+                    "log_output_dir": "${it[0].log_output_dir}/process-log/${it[0].log_dir_prefix}",
+                    "id": it[1],
+                    "variant_type": it[1]
+                ],
+                it[2]
+            ] }
+
+        if (params.save_unfiltered_vcfs) {
+            input_ch_compress_index = input_ch_compress_index.mix(
+                META.combine(run_MergeVcfs_GATK.out.unfiltered)
+                    .map{ unfilt -> [
+                        unfilt[0] + [
+                            "output_dir": unfilt[0].workflow_output_dir,
+                            "log_output_dir": "${unfilt[0].log_output_dir}/process-log/${unfilt[0].log_dir_prefix}",
+                            "id": "unfiltered",
+                            "variant_type": "unfiltered"
+                        ],
+                        unfilt[1]
+                    ] }
+            )
+        }
+
+        compress_index_VCF( input_ch_compress_index )
 
         indexed_vcfs = compress_index_VCF.out.index_out
             .map{ it -> [it[0].variant_type, it[1], it[2]] }
