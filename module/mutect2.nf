@@ -100,7 +100,7 @@ workflow mutect2 {
 
         if (params.save_unfiltered_vcfs) {
             input_ch_rename_samples = input_ch_rename_samples
-                .mix( run_MergeVcfs_GATK.out.unfiltered.map{ unfilt_merge -> ['unfiltered', unfilt_merge] } )
+                .mix( run_MergeVcfs_GATK.out.unfiltered.map{ unfilt_merge -> ['unfiltered-merged', unfilt_merge] } )
                 .mix( run_FilterMutectCalls_GATK.out.filtered.map{ filt_merge -> ['MutectFilter', filt_merge] } )
         }
 

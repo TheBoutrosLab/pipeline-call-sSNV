@@ -101,8 +101,8 @@ workflow deepsomatic {
                         unfilt[0] + [
                             "output_dir": unfilt[0].workflow_output_dir,
                             "log_output_dir": "${unfilt[0].log_output_dir}/process-log/${unfilt[0].log_dir_prefix}",
-                            "id": "unfiltered",
-                            "variant_type": "unfiltered"
+                            "id": "unfiltered-merged",
+                            "variant_type": "unfiltered-merged"
                         ],
                         unfilt[1]
                     ] }
