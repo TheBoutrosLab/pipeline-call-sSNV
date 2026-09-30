@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [9.7.0] - 2026-09-30
+
 ### Added
 
 - Add param to save unfiltered VCFs for Mutect2 and DeepSomatic
@@ -460,3 +462,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [9.4.1]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v9.4.0...v9.4.1
 [9.5.0]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v9.4.1...v9.5.0
 [9.6.0]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v9.5.0...v9.6.0
+[9.7.0]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v9.6.0...v9.7.0
+[unreleased]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v9.7.0...HEAD
