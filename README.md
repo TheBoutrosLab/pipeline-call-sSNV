@@ -185,6 +185,7 @@ input:
 | `dataset_id` | yes | string | The name/ID of the dataset    |
 | `exome`       | yes | boolean | The option will be used by `Strelka2` and `MuSE`. When `true`, it will add the `--exome` option  to Manta and Strelka2, and `-E` option to MuSE |
 | `save_intermediate_files` | yes | boolean | Whether to save intermediate files |
+| `save_unfiltered_vcfs` | yes | boolean | Whether to save intermediate unfiltered VCFs. Default: `false` |
 | `work_dir` | no | string | The path of working directory for Nextflow, storing intermediate files and logs. The path to a temporary working directory for Nextflow, storing intermediate files and logs. It is recommended to use fast, local storage with high I/O performance. |
 | `docker_container_registry` | no | string | Registry containing tool Docker images, optional. Default: `ghcr.io/uclahs-cds` |
 | `apptainer_library` | no | path | Path to readable Apptainer library directory containing any existing Apptainer images. |
@@ -284,9 +285,12 @@ base_resource_update {
 | Mutect2-{version}_{sample_id}_SNV.vcf.gz        | .vcf.gz         | Filtered SNV VCF (mutect2)      |
 | Mutect2-{version}_{sample_id}_Indel.vcf.gz        | .vcf.gz         | Filtered Indel VCF (mutect2)      |
 | Mutect2-{version}_{sample_id}_MNV.vcf.gz        | .vcf.gz         | Filtered MNV VCF (mutect2)      |
+| Mutect2-{version}_{sample_id}_MutectFilter.vcf.gz        | .vcf.gz         | Unfiltered VCF with Mutect Filter applied to label variants      |
+| Mutect2-{version}_{sample_id}_unfiltered-merged.vcf.gz        | .vcf.gz         | Merged VCF of raw Mutect2 calls      |
 | Mutect2-{version}_{sample_id}_filteringStats.tsv        | .tsv         | FilterMutectCalls output (mutect2 QC)      |
 | MuSE-{version}_{sample_id}_SNV.vcf.gz        | .vcf.gz         | Filtered SNV VCF (MuSE)   |
 | DeepSomatic-{version}_{sample_id}_SNV-split.vcf.gz        | .vcf.gz         | Filtered SNV VCF (DeepSomatic)   |
+| DeepSomatic-{version}_{sample_id}_unfiltered.vcf.gz        | .vcf.gz         | Merged VCF of raw DeepSomatic calls      |
 | report.html, timeline.html, trace.txt          | .html, .txt | Nextflow logs                 |
 
 | Intersect Outputs                                         | Type         | Description                   |
