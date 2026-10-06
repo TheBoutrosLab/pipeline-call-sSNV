@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [9.7.1] - 2026-10-06
+
 ### Changed
 
 - Update module submodule with CRAM validation handling
@@ -467,4 +469,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [9.5.0]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v9.4.1...v9.5.0
 [9.6.0]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v9.5.0...v9.6.0
 [9.7.0]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v9.6.0...v9.7.0
-[unreleased]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v9.7.0...HEAD
+[9.7.1]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v9.7.0...v9.7.1
+[unreleased]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v9.7.1...HEAD
