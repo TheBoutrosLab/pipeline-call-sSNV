@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update config submodule to fix task property access
+
 ## [9.7.1] - 2026-10-06
 
 ### Changed
