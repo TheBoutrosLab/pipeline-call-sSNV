@@ -26,7 +26,7 @@ workflow muse {
             "${params.dbSNP}.tbi"
         )
         filter_VCF_BCFtools(META, run_sump_MuSE.out.vcf.map { it -> ['SNV', it] } )
-        Channel.from([['TUMOR', params.tumor_id], ['NORMAL', params.normal_id]])
+        Channel.fromList([['TUMOR', params.tumor_id], ['NORMAL', params.normal_id]])
             .map{ it -> ['orig_id': it[0], 'id': it[1]] }
             .collect()
             .set { rename_ids }
