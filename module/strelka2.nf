@@ -38,7 +38,7 @@ workflow strelka2 {
         filter_VCF_BCFtools(META, call_sSNV_Strelka2.out.snvs_gzvcf
             .mix(call_sSNV_Strelka2.out.indels_gzvcf))
 //  combine ids with each of the filtered strelka outputs (SNV and INDEL)
-        Channel.from([['TUMOR', params.tumor_id], ['NORMAL', params.normal_id]])
+        Channel.fromList([['TUMOR', params.tumor_id], ['NORMAL', params.normal_id]])
             .map{ it -> ['orig_id': it[0], 'id': it[1]] }
             .collect()
             .combine(filter_VCF_BCFtools.out.gzvcf)
