@@ -1,5 +1,5 @@
 {
-  "nextflow_version": "23.10.0",
+  "nextflow_version": "25.10.5",
   "config": [
     "config/template.config"
   ],
@@ -177,7 +177,7 @@
       "manta_version": "1.6.0",
       "max_cpus": "16",
       "max_memory": "31 GB",
-      "max_time": "24d 20h 31m 24s",
+      "max_time": "1000d",
       "min_cpus": "1",
       "min_memory": "1 MB",
       "min_time": "1s",
@@ -539,7 +539,6 @@
     "singularity": {
       "enabled": false
     },
-    "sm_tag": "0192847",
     "timeline": {
       "enabled": true,
       "file": "/tmp/outputs/call-sSNV-VER.SI.ON/0192847/log-call-sSNV-VER.SI.ON-19970704T165655Z/nextflow-log/timeline.html"
@@ -548,13 +547,6 @@
       "enabled": true,
       "file": "/tmp/outputs/call-sSNV-VER.SI.ON/0192847/log-call-sSNV-VER.SI.ON-19970704T165655Z/nextflow-log/trace.txt"
     },
-    "valid_algorithms": [
-      "somaticsniper",
-      "strelka2",
-      "mutect2",
-      "muse",
-      "deepsomatic"
-    ],
     "workDir": "/scratch/8543"
   }
 }

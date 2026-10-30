@@ -236,13 +236,13 @@ workflow {
         ]
     }
 
-    reference_ch = Channel.from(
+    reference_ch = Channel.of(
         params.reference,
         params.reference_index,
         params.reference_dict
         )
 
-    intersect_regions_ch = Channel.from(
+    intersect_regions_ch = Channel.of(
         params.intersect_regions,
         params.intersect_regions_index
         )

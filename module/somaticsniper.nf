@@ -102,7 +102,7 @@ workflow somaticsniper {
             )
         hc_indexed_vcfs = compress_index_VCF_hc.out.index_out
             .map{ it -> [it[0].variant_type, it[1], it[2]] }
-        Channel.from([['TUMOR', params.tumor_id], ['NORMAL', params.normal_id]])
+        Channel.fromList([['TUMOR', params.tumor_id], ['NORMAL', params.normal_id]])
             .map{ it -> ['orig_id': it[0], 'id': it[1]] }
             .collect()
             .set { rename_ids }
