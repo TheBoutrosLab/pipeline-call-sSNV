@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Disable `ociAutoPull` when library or cache dir is given
+
 ## [10.0.0] - 2026-10-30
 
 ### Changed
