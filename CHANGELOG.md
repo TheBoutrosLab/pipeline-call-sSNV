@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [10.1.0] - 2026-11-20
+
 ### Changed
 
 - Disable `ociAutoPull` when library or cache dir is given
@@ -458,6 +460,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.4.0]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v1.3.0...v1.4.0
 [1.5.0]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v1.4.0...v1.5.0
 [10.0.0]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v9.7.2...v10.0.0
+[10.1.0]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v10.0.0...v10.1.0
 [2.0.0]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v1.5.0...v2.0.0
 [2.1.0]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v2.0.0...v2.1.0
 [2.1.1]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v2.1.0...v2.1.1
@@ -488,4 +491,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [9.7.0]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v9.6.0...v9.7.0
 [9.7.1]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v9.7.0...v9.7.1
 [9.7.2]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v9.7.1...v9.7.2
-[unreleased]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v10.0.0...HEAD
+[unreleased]: https://github.com/TheBoutrosLab/pipeline-call-sSNV/compare/v10.1.0...HEAD
