@@ -356,11 +356,15 @@ workflow {
         .map{ [algorithm: getToolName(it), path: it] }
         .collect()
 
-    plot_vaf(
-        plot_vaf_meta,
-        identified_gzvcfs,
-        all_files
-        )
+    // VAF plotting requires a single tumor sample ID
+    // skip in multi-tumor mode
+    if (params.sample_mode != 'multi_tumor') {
+        plot_vaf(
+            plot_vaf_meta,
+            identified_gzvcfs,
+            all_files
+            )
+        }
 
     
     workflow.onComplete = {
